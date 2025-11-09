@@ -1,93 +1,123 @@
-# final-project-group-ae
+# 🏥 MediTrack — Smart Medication & Appointment Tracker
 
+## 📘 Concept Note
 
+**MediTrack** is a simple yet powerful mobile application designed to help users **track their medications and medical appointments** efficiently. The app aims to enhance **patient engagement and healthcare continuity** by leveraging the **FHIR (Fast Healthcare Interoperability Resources)** standard to connect with healthcare data systems.
 
-## Getting started
+### 🎯 Project Concept
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+In today’s healthcare landscape, patients often struggle to manage their medication schedules, remember appointments, or access their medical records across different providers. MediTrack solves this problem by offering an **intuitive and secure mobile app** that centralizes medication reminders, appointment tracking, and patient data access — all in one place.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+By integrating **FHIR APIs**, the app ensures **interoperability** with hospital systems, pharmacies, and healthcare providers, enabling **real-time synchronization** of patient and medication data. This allows users to stay informed and healthcare providers to maintain accurate, up-to-date records.
 
-## Add your files
+---
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## 💡 Why FHIR?
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/nzizabenjamin/final-project-group-ae.git
-git branch -M main
-git push -uf origin main
-```
+**FHIR (Fast Healthcare Interoperability Resources)** is a global standard created by **HL7** for exchanging healthcare information electronically.  
+By using FHIR APIs, MediTrack can:
 
-## Integrate with your tools
+- 🔗 **Integrate with existing Electronic Health Records (EHRs):** Fetch basic patient demographics, medication prescriptions, and appointment data.  
+- ⚙️ **Ensure interoperability:** Seamlessly connect to any system that supports FHIR standards.  
+- 🔒 **Enhance data security:** Follow healthcare data privacy standards such as **HIPAA** and **GDPR**.  
+- 🚀 **Simplify development:** Use structured RESTful APIs to easily access, query, and update healthcare data resources.
 
-- [ ] [Set up project integrations](https://gitlab.com/nzizabenjamin/final-project-group-ae/-/settings/integrations)
+Key FHIR resources used in MediTrack include:
+- **Patient** – to retrieve patient demographic data.  
+- **Medication** – to display prescribed medications.  
+- **MedicationRequest** – to manage prescribed medications and dosages.  
+- **Appointment** – to schedule and remind users of medical appointments.  
 
-## Collaborate with your team
+---
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+## 📱 App Overview
 
-## Test and Deploy
+### 🧩 Core Features
 
-Use the built-in continuous integration in GitLab.
+| Feature | Description |
+|----------|-------------|
+| 🕒 **Medication Tracker** | Allows users to log medications, set reminders, and receive alerts when it’s time to take them. |
+| 📅 **Appointment Scheduler** | Syncs with healthcare provider systems to track appointments and notify users of upcoming visits. |
+| 🧑‍⚕️ **Patient Profile** | Displays basic patient information fetched securely from FHIR servers. |
+| 💊 **Medication Data Integration** | Retrieves prescribed medications from FHIR’s `Medication` and `MedicationRequest` endpoints. |
+| 🔔 **Smart Notifications** | Sends push notifications for medication intake and appointments. |
+| 📊 **Health Summary Dashboard** | Provides a summary of active prescriptions, next appointments, and adherence reports. |
+| 🔐 **Data Security & Privacy** | Uses OAuth2.0 for secure authentication with FHIR-compatible servers. |
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+---
 
-***
+## 🧠 Technical Architecture
 
-# Editing this README
+**Frontend:** Flutter (cross-platform mobile app)  
+**Backend:** Node.js / Firebase Functions (for handling API logic and authentication)  
+**API Standard:** HL7 FHIR (R4)  
+**Database:** Firestore / Cloud Database for user-specific local data  
+**Authentication:** OAuth2.0 (SMART on FHIR)  
+**Hosting:** Firebase / Google Cloud Platform  
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+---
 
-## Suggestions for a good README
+## 🔄 FHIR Integration Flow
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+1. **User Authentication**  
+   The user logs in securely using OAuth2.0 via a FHIR-compatible healthcare provider.
 
-## Name
-Choose a self-explaining name for your project.
+2. **Data Retrieval**  
+   The app calls FHIR endpoints to retrieve:
+   - `/Patient` → fetch patient demographics  
+   - `/MedicationRequest` → retrieve prescribed medications  
+   - `/Appointment` → get scheduled medical visits  
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+3. **Local Storage & Sync**  
+   Retrieved data is cached locally and periodically synced for offline support.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+4. **User Interaction**  
+   The user can view, edit, or set reminders linked to these FHIR-based records.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+---
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## ⚙️ Example FHIR Endpoints Used
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+| Resource | Endpoint | Description |
+|-----------|-----------|-------------|
+| Patient | `/Patient/{id}` | Retrieves patient demographic data |
+| Medication | `/Medication/{id}` | Retrieves medication details |
+| MedicationRequest | `/MedicationRequest?patient={id}` | Lists all medications prescribed to a patient |
+| Appointment | `/Appointment?patient={id}` | Fetches upcoming or past appointments |
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+---
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## 🧩 Expected Impact
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+- 💪 **Empowered patients** through active involvement in their medication and care routines.  
+- 🧠 **Smarter healthcare decisions** enabled by up-to-date, accurate data.  
+- 🏥 **Improved collaboration** between healthcare providers and patients.  
+- 🇷🇼 **Aligned with Rwanda’s Smart Health initiatives** and **Vision 2050**, promoting the use of digital health innovations.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+---
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## 👥 Team Members
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+| Name | 
+|------|
+| [Member 1] | 
+| [ID: 25583 Names:Baraka Johnson Bright] | 
+| [Member 3] | 
+| [Member 4] | 
 
-## License
-For open source projects, say how it is licensed.
+---
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## 🧾 Future Enhancements
+
+- 🩺 Integration with wearable devices for vital tracking (heart rate, blood pressure).  
+- 🌍 Multi-language support (English, Kinyarwanda, French).  
+- 🧬 AI-based medication adherence predictions.  
+- 🩹 Integration with national eHealth systems for real-time updates.
+
+---
+
+## 🧰 How to Run
+
+1. Clone the repository:
+   ```bash
+   git clone https://gitlab.com/your-username/meditrack.git
