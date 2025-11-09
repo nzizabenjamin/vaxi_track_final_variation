@@ -100,10 +100,10 @@ Key FHIR resources used in MediTrack include:
 
 | Name | Names |
 |------|------|
-| [ID: ] | [      ]| 
-| [ID: 25583 ]|[  Names: Baraka Johnson Bright] | 
-| [ID: ] | [      ]| 
-| [ID: ] | [      ]| 
+| ID:  |       | 
+| ID: 25583 | Baraka Johnson Bright | 
+| ID:  |       | 
+| ID:  |       | 
 
 ---
 
