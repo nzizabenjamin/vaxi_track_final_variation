@@ -98,12 +98,12 @@ Key FHIR resources used in MediTrack include:
 
 ## 👥 Team Members
 
-| Name | 
-|------|
-| [Member 1] | 
-| [ID: 25583 Names:Baraka Johnson Bright] | 
-| [Member 3] | 
-| [Member 4] | 
+| Name | Names |
+|------|------|
+| [ID: ] | [      ]| 
+| [ID: 25583 ]|[  Names: Baraka Johnson Bright] | 
+| [ID: ] | [      ]| 
+| [ID: ] | [      ]| 
 
 ---
 
