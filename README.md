@@ -104,6 +104,12 @@ Key FHIR resources used in MediTrack include:
 | ID: 25583 | Baraka Johnson Bright | 
 | ID:  |       | 
 | ID:  |       | 
+| ID:  |       | 
+| ID:  |       | 
+| ID:  |       | 
+| ID:  |       | 
+| ID:  |       | 
+| ID:  |       | 
 
 ---
 
@@ -115,9 +121,3 @@ Key FHIR resources used in MediTrack include:
 - 🩹 Integration with national eHealth systems for real-time updates.
 
 ---
-
-## 🧰 How to Run
-
-1. Clone the repository:
-   ```bash
-   git clone https://gitlab.com/your-username/meditrack.git
