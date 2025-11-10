@@ -1,4 +1,5 @@
 # final-project-group-ae
+<<<<<<< README.md
 # 🩺 VaxiTrack — Immunization Planner & Tracker
 
 ###🧩 SECTION 1 — Project Overview 
@@ -19,13 +20,5 @@ VaxiTrack is a mobile-based solution that helps parents and community health wor
 ##💡 Problem Statement
 
 Many children miss vaccines due to poor follow-up and manual tracking. VaxiTrack solves this by providing automated reminders, access to vaccination history, and real-time data synchronization.
-
-
-
-- 🪪 Integration with OAuth2.0 and Push Notifications.
-- 🩺 Integration with wearable devices for vital tracking (heart rate, blood pressure).  
-- 🌍 Multi-language support (English, Kinyarwanda, French).  
-- 🧬 AI-based medication adherence predictions.  
-- 🩹 Integration with national eHealth systems for real-time updates.
 
 ---
