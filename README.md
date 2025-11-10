@@ -23,10 +23,4 @@ Many children miss vaccines due to poor follow-up and manual tracking. VaxiTrack
 
 
 
-- 🪪 Integration with OAuth2.0 and Push Notifications.
-- 🩺 Integration with wearable devices for vital tracking (heart rate, blood pressure).  
-- 🌍 Multi-language support (English, Kinyarwanda, French).  
-- 🧬 AI-based medication adherence predictions.  
-- 🩹 Integration with national eHealth systems for real-time updates.
-
 ---
