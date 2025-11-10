@@ -1,3 +1,4 @@
+# final-project-group-ae
 # 🏥 MediTrack — Smart Medication & Appointment Tracker
 
 ## 📘 Concept Note
@@ -8,7 +9,7 @@
 
 In today’s healthcare landscape, patients often struggle to manage their medication schedules, remember appointments, or access their medical records across different providers. MediTrack solves this problem by offering an **intuitive and secure mobile app** that centralizes medication reminders, appointment tracking, and patient data access — all in one place.
 
-By integrating **FHIR APIs**, the app ensures **interoperability** with hospital systems, pharmacies, and healthcare providers, enabling **real-time synchronization** of patient and medication data. This allows users to stay informed and healthcare providers to maintain accurate, up-to-date records.
+By integrating **FHIR APIs**, the app ensures **interoperability** with hospital systems, pharmacies, and healthcare providers, allowing basic access to patient and medication data using public FHIR APIs.. This allows users to stay informed and healthcare providers to maintain accurate, up-to-date records.
 
 ---
 
@@ -19,7 +20,7 @@ By using FHIR APIs, MediTrack can:
 
 - 🔗 **Integrate with existing Electronic Health Records (EHRs):** Fetch basic patient demographics, medication prescriptions, and appointment data.  
 - ⚙️ **Ensure interoperability:** Seamlessly connect to any system that supports FHIR standards.  
-- 🔒 **Enhance data security:** Follow healthcare data privacy standards such as **HIPAA** and **GDPR**.  
+- 🔒 **Enhance data security:** Uses a public FHIR test server (HAPI FHIR) to demonstrate how healthcare data can be exchanged between systems in a standardized format. 
 - 🚀 **Simplify development:** Use structured RESTful APIs to easily access, query, and update healthcare data resources.
 
 Key FHIR resources used in MediTrack include:
@@ -42,25 +43,26 @@ Key FHIR resources used in MediTrack include:
 | 💊 **Medication Data Integration** | Retrieves prescribed medications from FHIR’s `Medication` and `MedicationRequest` endpoints. |
 | 🔔 **Smart Notifications** | Sends push notifications for medication intake and appointments. |
 | 📊 **Health Summary Dashboard** | Provides a summary of active prescriptions, next appointments, and adherence reports. |
-| 🔐 **Data Security & Privacy** | Uses OAuth2.0 for secure authentication with FHIR-compatible servers. |
+| 🔐 **Data Security & Privacy** | Uses basic HTTPS requests to access test FHIR data (no login needed). |
 
 ---
 
 ## 🧠 Technical Architecture
 
-**Frontend:** Flutter (cross-platform mobile app)  
-**Backend:** Node.js / Firebase Functions (for handling API logic and authentication)  
-**API Standard:** HL7 FHIR (R4)  
-**Database:** Firestore / Cloud Database for user-specific local data  
-**Authentication:** OAuth2.0 (SMART on FHIR)  
-**Hosting:** Firebase / Google Cloud Platform  
+**Development Environment:** Android Studio  
+**Language:** Java  
+**API Standard:** HL7 FHIR (R4) — using the public HAPI FHIR server  
+**Networking:** Retrofit or HttpURLConnection for REST API calls  
+**Local Data:** SharedPreferences / SQLite for reminders  
+**UI Design:** XML layouts & Material Design components
+
 
 ---
 
 ## 🔄 FHIR Integration Flow
 
-1. **User Authentication**  
-   The user logs in securely using OAuth2.0 via a FHIR-compatible healthcare provider.
+1. **Data Access**  
+   The app connects directly to the public FHIR test server (no authentication needed) to fetch sample patient, medication, and appointment data.
 
 2. **Data Retrieval**  
    The app calls FHIR endpoints to retrieve:
@@ -77,6 +79,7 @@ Key FHIR resources used in MediTrack include:
 ---
 
 ## ⚙️ Example FHIR Endpoints Used
+The following read-only endpoints from the HAPI FHIR test server are used for demonstration purposes:
 
 | Resource | Endpoint | Description |
 |-----------|-----------|-------------|
@@ -102,7 +105,7 @@ Key FHIR resources used in MediTrack include:
 |------|------|
 | ID: 25713 | NDJOGOU MPIRA O. David| 
 | ID: 25583 | Baraka Johnson Bright | 
-| ID:  |       | 
+| ID: 26082 |  ISHIMWE GWIZA Ruth  | 
 | ID:  |       | 
 | ID:  |       | 
 | ID:  |       | 
@@ -115,6 +118,7 @@ Key FHIR resources used in MediTrack include:
 
 ## 🧾 Future Enhancements
 
+- 🪪 Integration with OAuth2.0 and Push Notifications.
 - 🩺 Integration with wearable devices for vital tracking (heart rate, blood pressure).  
 - 🌍 Multi-language support (English, Kinyarwanda, French).  
 - 🧬 AI-based medication adherence predictions.  
