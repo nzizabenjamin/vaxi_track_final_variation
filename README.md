@@ -197,7 +197,7 @@ json
 | Ruth Ishimwe Gwiza     | 26082 | 
 | Baraka Johnson Bright  | 25583 | 
 | Ndjogou Mpira O. David | 25713 | 
-| [Member 4]             | [ID]  | 
+| Nziza Benjamin             | 26240  | 
 | [Member 5]             | [ID]  |
 | [Member 6]             | [ID]  | 
 | [Member 7]             | [ID]  | 
