@@ -106,7 +106,7 @@ The following read-only endpoints from the HAPI FHIR test server are used for de
 | ID: 25713 | NDJOGOU MPIRA O. David| 
 | ID: 25583 | Baraka Johnson Bright | 
 | ID: 26082 |  ISHIMWE GWIZA Ruth  | 
-| ID:  |       | 
+| ID: 25231 | Nishimwe Kid Davinah  | 
 | ID:  |       | 
 | ID:  |       | 
 | ID:  |       | 
