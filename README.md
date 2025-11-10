@@ -1,127 +1,225 @@
-# final-project-group-ae
-# 🏥 MediTrack — Smart Medication & Appointment Tracker
-
-## 📘 Concept Note
-
-**MediTrack** is a simple yet powerful mobile application designed to help users **track their medications and medical appointments** efficiently. The app aims to enhance **patient engagement and healthcare continuity** by leveraging the **FHIR (Fast Healthcare Interoperability Resources)** standard to connect with healthcare data systems.
-
-### 🎯 Project Concept
-
-In today’s healthcare landscape, patients often struggle to manage their medication schedules, remember appointments, or access their medical records across different providers. MediTrack solves this problem by offering an **intuitive and secure mobile app** that centralizes medication reminders, appointment tracking, and patient data access — all in one place.
-
-By integrating **FHIR APIs**, the app ensures **interoperability** with hospital systems, pharmacies, and healthcare providers, allowing basic access to patient and medication data using public FHIR APIs.. This allows users to stay informed and healthcare providers to maintain accurate, up-to-date records.
+## 🩺 **VaxiTrack — Smart Immunization Planner & Tracker**
 
 ---
 
-## 💡 Why FHIR?
+### 🧩 **SECTION 1 — Project Overview (Ruth Ishimwe Gwiza, ID: 26082)**
 
-**FHIR (Fast Healthcare Interoperability Resources)** is a global standard created by **HL7** for exchanging healthcare information electronically.  
-By using FHIR APIs, MediTrack can:
+#### 📘 Summary
 
-- 🔗 **Integrate with existing Electronic Health Records (EHRs):** Fetch basic patient demographics, medication prescriptions, and appointment data.  
-- ⚙️ **Ensure interoperability:** Seamlessly connect to any system that supports FHIR standards.  
-- 🔒 **Enhance data security:** Uses a public FHIR test server (HAPI FHIR) to demonstrate how healthcare data can be exchanged between systems in a standardized format. 
-- 🚀 **Simplify development:** Use structured RESTful APIs to easily access, query, and update healthcare data resources.
+VaxiTrack is a mobile-based solution that helps parents and community health workers (CHWs) monitor and manage child immunization schedules. It ensures that every child receives their vaccines on time and that caregivers are reminded automatically before each dose.
 
-Key FHIR resources used in MediTrack include:
-- **Patient** – to retrieve patient demographic data.  
-- **Medication** – to display prescribed medications.  
-- **MedicationRequest** – to manage prescribed medications and dosages.  
-- **Appointment** – to schedule and remind users of medical appointments.  
+#### 🎯 Objectives
 
----
+* Provide digital immunization tracking
+* Reduce missed vaccination appointments
+* Centralize child health data using FHIR APIs
+* Improve CHW efficiency through reminders and reports
 
-## 📱 App Overview
+#### 💡 Problem Statement
 
-### 🧩 Core Features
-
-| Feature | Description |
-|----------|-------------|
-| 🕒 **Medication Tracker** | Allows users to log medications, set reminders, and receive alerts when it’s time to take them. |
-| 📅 **Appointment Scheduler** | Syncs with healthcare provider systems to track appointments and notify users of upcoming visits. |
-| 🧑‍⚕️ **Patient Profile** | Displays basic patient information fetched securely from FHIR servers. |
-| 💊 **Medication Data Integration** | Retrieves prescribed medications from FHIR’s `Medication` and `MedicationRequest` endpoints. |
-| 🔔 **Smart Notifications** | Sends push notifications for medication intake and appointments. |
-| 📊 **Health Summary Dashboard** | Provides a summary of active prescriptions, next appointments, and adherence reports. |
-| 🔐 **Data Security & Privacy** | Uses basic HTTPS requests to access test FHIR data (no login needed). |
+Many children miss vaccines due to poor follow-up and manual tracking. VaxiTrack solves this by providing automated reminders, access to vaccination history, and real-time data synchronization.
 
 ---
 
-## 🧠 Technical Architecture
+### ⚙️ **SECTION 2 — Technical Architecture (Baraka Johnson Bright, ID: 25583)**
 
-**Development Environment:** Android Studio  
-**Language:** Java  
-**API Standard:** HL7 FHIR (R4) — using the public HAPI FHIR server  
-**Networking:** Retrofit or HttpURLConnection for REST API calls  
-**Local Data:** SharedPreferences / SQLite for reminders  
-**UI Design:** XML layouts & Material Design components
+#### 🛠️ Tools & Frameworks
 
+| Component       | Technology                              |
+| --------------- | --------------------------------------- |
+| Mobile Platform | Android (Java/Kotlin)                   |
+| API Standard    | HL7 FHIR R4 (HAPI FHIR Test Server)     |
+| Database        | SQLite (for local storage)              |
+| Networking      | Retrofit2 / OkHttp                      |
+| UI Design       | XML + Material Design                   |
+| Notifications   | AlarmManager / Firebase Cloud Messaging |
 
----
+#### 🔗 System Layers
 
-## 🔄 FHIR Integration Flow
-
-1. **Data Access**  
-   The app connects directly to the public FHIR test server (no authentication needed) to fetch sample patient, medication, and appointment data.
-
-2. **Data Retrieval**  
-   The app calls FHIR endpoints to retrieve:
-   - `/Patient` → fetch patient demographics  
-   - `/MedicationRequest` → retrieve prescribed medications  
-   - `/Appointment` → get scheduled medical visits  
-
-3. **Local Storage & Sync**  
-   Retrieved data is cached locally and periodically synced for offline support.
-
-4. **User Interaction**  
-   The user can view, edit, or set reminders linked to these FHIR-based records.
+1. **UI Layer** — Screens for vaccines, reminders, and profiles.
+2. **Data Layer** — Local database and API sync.
+3. **Integration Layer** — FHIR RESTful APIs for Patient, Immunization, Appointment, CarePlan, Communication.
 
 ---
 
-## ⚙️ Example FHIR Endpoints Used
-The following read-only endpoints from the HAPI FHIR test server are used for demonstration purposes:
+### 📱 **SECTION 3 — Core Features (Ndjogou Mpira O. David, ID: 25713)**
 
-| Resource | Endpoint | Description |
-|-----------|-----------|-------------|
-| Patient | `/Patient/{id}` | Retrieves patient demographic data |
-| Medication | `/Medication/{id}` | Retrieves medication details |
-| MedicationRequest | `/MedicationRequest?patient={id}` | Lists all medications prescribed to a patient |
-| Appointment | `/Appointment?patient={id}` | Fetches upcoming or past appointments |
+#### 🧩 Main Functionalities
 
----
+* Child profile registration (via `Patient` resource)
+* Vaccine tracking and progress visualization
+* Reminder notifications before due dates
+* Appointment scheduling (via `Appointment` resource)
+* Offline access for CHWs in rural areas
+* Local data caching and sync with FHIR server
 
-## 🧩 Expected Impact
+#### 🔔 Key Features
 
-- 💪 **Empowered patients** through active involvement in their medication and care routines.  
-- 🧠 **Smarter healthcare decisions** enabled by up-to-date, accurate data.  
-- 🏥 **Improved collaboration** between healthcare providers and patients.  
-- 🇷🇼 **Aligned with Rwanda’s Smart Health initiatives** and **Vision 2050**, promoting the use of digital health innovations.
+* Auto-generated immunization schedule per child
+* Color-coded progress bars for completed vaccines
+* Alerts for overdue vaccinations
 
 ---
 
-## 👥 Team Members
+### 🎨 **SECTION 4 — UI/UX Design ([Member 4])**
 
-| Name | Names |
-|------|------|
-| ID: 25713 | NDJOGOU MPIRA O. David| 
-| ID: 25583 | Baraka Johnson Bright | 
-| ID: 26082 |  ISHIMWE GWIZA Ruth  | 
-| ID:  |       | 
-| ID:  |       | 
-| ID:  |       | 
-| ID:  |       | 
-| ID:  |       | 
-| ID:  |       | 
-| ID:  |       | 
+#### 🖌️ Design Approach
+
+* Minimal, health-oriented interface using Material Design
+* Color theme: Blue (#2F80ED), White (#FFFFFF), and Soft Green (#27AE60)
+* Focused on readability and ease of navigation
+
+#### 📱 Main Screens
+
+1. **Dashboard:** Displays vaccine status & upcoming doses
+2. **Child Profile:** Basic info + immunization card
+3. **Appointments:** Scheduled visits
+4. **Notifications:** Reminders and alerts
+
+#### 🧭 Navigation
+
+Bottom navigation bar with tabs: Home | Vaccines | Appointments | Profile
 
 ---
 
-## 🧾 Future Enhancements
+### 💾 **SECTION 5 — Database & Data Flow ([Member 5])**
 
-- 🪪 Integration with OAuth2.0 and Push Notifications.
-- 🩺 Integration with wearable devices for vital tracking (heart rate, blood pressure).  
-- 🌍 Multi-language support (English, Kinyarwanda, French).  
-- 🧬 AI-based medication adherence predictions.  
-- 🩹 Integration with national eHealth systems for real-time updates.
+#### 🧠 Data Model Overview
+
+| Table         | Description                       |
+| ------------- | --------------------------------- |
+| Patient       | Stores child info                 |
+| Immunization  | Stores vaccine records            |
+| Appointment   | Tracks upcoming visits            |
+| CarePlan      | Defines schedule for doses        |
+| Communication | Handles reminders & notifications |
+
+#### 🔄 Data Flow
+
+1. User registers child → stored as `Patient`
+2. Vaccine details fetched via `/Immunization`
+3. App generates reminders using `CarePlan`
+4. Notification messages via `Communication`
+5. Data synced with HAPI FHIR server when online
+
+---
+
+### 🧠 **SECTION 6 — FHIR API Integration ([Member 6])**
+
+#### 🌐 API Endpoints Used
+
+| Resource      | Endpoint Example             | Description                  |
+| ------------- | ---------------------------- | ---------------------------- |
+| Patient       | `/Patient/{id}`              | Fetch child demographic info |
+| Immunization  | `/Immunization?patient={id}` | List vaccine records         |
+| Appointment   | `/Appointment?patient={id}`  | Track appointments           |
+| CarePlan      | `/CarePlan?patient={id}`     | Define vaccine schedules     |
+| Communication | `/Communication`             | Send or log reminders        |
+
+#### 🧩 Sample JSON Example
+
+```json
+{
+  "resourceType": "Immunization",
+  "status": "completed",
+  "vaccineCode": { "text": "BCG Vaccine" },
+  "patient": { "reference": "Patient/1234" },
+  "occurrenceDateTime": "2025-02-10"
+}
+```
+
+---
+
+### 🔔 **SECTION 7 — Notifications & Reminders ([Member 7])**
+
+#### ⏰ Reminder System
+
+* Android AlarmManager triggers notifications before vaccine due dates
+* Firebase Cloud Messaging used for real-time alerts if connected to server
+
+#### 🔄 Notification Flow
+
+1. Retrieve vaccine due dates from `CarePlan`
+2. Schedule local notifications using AlarmManager
+3. Log each reminder via `Communication` resource
+
+#### 📨 Example Use Case
+
+> “John (Age 1) is due for Polio Vaccine tomorrow.”
+> Parents receive push notification 24h before and on the day of vaccination.
+
+---
+
+### 🧪 **SECTION 8 — Testing & Evaluation ([Member 8])**
+
+#### 🧠 Testing Strategy
+
+| Type                | Tool          | Purpose                    |
+| ------------------- | ------------- | -------------------------- |
+| Unit Testing        | JUnit         | Validate logic & reminders |
+| Integration Testing | Retrofit Mock | API testing                |
+| UI Testing          | Espresso      | Screen navigation checks   |
+| User Testing        | Field Test    | CHW usability feedback     |
+
+#### 📋 Evaluation Criteria
+
+* ✅ Accurate vaccine schedule generation
+* ✅ Timely notifications sent
+* ✅ Smooth API sync
+* ✅ Offline support verified
+
+---
+
+### 🌍 **SECTION 9 — Impact & Future Work ([Member 9])**
+
+#### 💪 Social Impact
+
+* Reduce missed immunization appointments
+* Improve record accuracy for CHWs
+* Empower parents through reminders
+* Support Rwanda’s Smart Health initiative
+
+#### 🚀 Future Enhancements
+
+* Multi-language support (Kinyarwanda, English, French)
+* Integration with national health APIs
+* Smart analytics for vaccination coverage
+* Predictive AI for missed-dose risk detection
+
+---
+
+### 👥 **SECTION 10 — Team & Collaboration ([Member 10])**
+
+#### 👨‍💻 Team Members
+
+| Name                   | ID    | 
+| ---------------------- | ----- | 
+| Ruth Ishimwe Gwiza     | 26082 | 
+| Baraka Johnson Bright  | 25583 | 
+| Ndjogou Mpira O. David | 25713 | 
+| Munezero Eugene        | 26509 | 
+| Habamenshi Ineza Darryl| 25948 |
+|Nziza Benjamin          | 26240  | 
+| Nishimwe Kid Davinah  | 25231 | 
+| Dukuziyaremye Serge   | 26084 | 
+| Maniragaba Theoneste   | 26078 | 
+| Cyubahiro Eddy Prince  | 24881 | 
+
+#### 🤝 Collaboration Workflow
+
+1. Each member edits **only their section**
+2. Create a personal branch
+3. Commit and push changes
+4. Submit Pull Request (PR) to `main`
+5. Merge after review
+
+#### 🧭 Example Commands
+
+```bash
+git checkout -b section7-isaac
+git add README.md
+git commit -m "Edited Section 7 - Notifications by Isaac"
+git push -u origin section7-isaac
+```
 
 ---
