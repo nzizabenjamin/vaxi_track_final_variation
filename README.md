@@ -104,7 +104,7 @@ Bottom navigation bar with tabs: Home | Vaccines | Appointments | Profile
 
 ---
 
-### 🧠 *SECTION 6 — FHIR API Integration ([Member 6])*
+### 🧠 *SECTION 6 — FHIR API Integration (26078)*
 
 #### 🌐 API Endpoints Used
 
@@ -199,7 +199,7 @@ json
 | Ndjogou Mpira O. David | 25713 | 
 | Nziza Benjamin         | 26240 | 
 | Cyubahiro Eddy Prince  | 24881 |
-| [Member 6]             | [ID]  | 
+| [Member 6]             | 26078 | 
 | [Member 7]             | [ID]  | 
 | [Member 8]             | [ID]  | 
 | [Member 9]             | [ID]  | 
