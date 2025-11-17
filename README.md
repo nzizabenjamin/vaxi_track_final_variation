@@ -61,7 +61,7 @@ Many children miss vaccines due to poor follow-up and manual tracking. VaxiTrack
 
 ---
 
-### 🎨 *SECTION 4 — UI/UX Design (Nziza Benjamin 26240)*
+### 🎨 *SECTION 4 — UI/UX Design (26240)*
 
 #### 🖌 Design Approach
 
@@ -82,7 +82,7 @@ Bottom navigation bar with tabs: Home | Vaccines | Appointments | Profile
 
 ---
 
-### 💾 *SECTION 5 — Database & Data Flow ([Member 5])*
+### 💾 *SECTION 5 — Database & Data Flow (24881 )*
 
 #### 🧠 Data Model Overview
 
@@ -197,29 +197,11 @@ json
 | Ruth Ishimwe Gwiza     | 26082 | 
 | Baraka Johnson Bright  | 25583 | 
 | Ndjogou Mpira O. David | 25713 | 
-| Nziza Benjamin             | 26240  | 
-| [Member 5]             | [ID]  |
+| Nziza Benjamin         | 26240 | 
+| Cyubahiro Eddy Prince  | 24881 |
 | [Member 6]             | [ID]  | 
 | [Member 7]             | [ID]  | 
 | [Member 8]             | [ID]  | 
 | [Member 9]             | [ID]  | 
 | [Member 10]            | [ID]  | 
 
-#### 🤝 Collaboration Workflow
-
-1. Each member edits *only their section*
-2. Create a personal branch
-3. Commit and push changes
-4. Submit Pull Request (PR) to main
-5. Merge after review
-
-#### 🧭 Example Commands
-
-bash
-git checkout -b section7-isaac
-git add README.md
-git commit -m "Edited Section 7 - Notifications by Isaac"
-git push -u origin section7-isaac
-
-
----
