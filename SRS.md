@@ -3,7 +3,7 @@
 **Project:** Immunization Planner & Tracker  
 **Version:** 1.0  
 **Date:** November 17, 2025  
-**Status:** Final Draft  
+**Status:** Draft  
 
 ---
 
