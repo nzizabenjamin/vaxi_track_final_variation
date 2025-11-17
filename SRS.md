@@ -184,5 +184,187 @@ json
   "location": {"reference": "Location/facility-001"}
 }
 
+## 7. Data Model
+
+The Immunization Planner & Tracker data model outlines the core entities, their attributes, and how they relate to each other within the system. This structure ensures seamless integration with FHIR resources while supporting core app functionalities such as medication tracking, appointment scheduling, and care management.
+
+### 7.1 Core Entities
+
+#### 1. Patient
+
+Represents the app user or medical patient within the system.
+
+**FHIR Equivalent:** `Patient`
+
+**Key Attributes:**
+- PatientID: Unique identifier for the patient
+- Name: Full name of the patient
+- Gender: Patient's gender
+- BirthDate: Patient's date of birth
+- ContactInfo: Primary contact information (phone, email)
+- Address: Patient's residential address
+
+**Purpose:** Central entity that links all patient-related records including immunizations, appointments, and care plans.
+
+---
+
+#### 2. Guardian
+
+Represents a caretaker or parent associated with a patient, mainly for minors and dependents.
+
+**Key Attributes:**
+- GuardianID: Unique identifier for the guardian
+- Name: Full name of the guardian
+- Relationship: Type of relationship (e.g., parent, legal guardian, caregiver)
+- ContactInfo: Contact information for the guardian
+
+**Purpose:** Enables tracking of caretaker relationships and ensures appropriate notification and consent management.
+
+---
+
+#### 3. Immunization
+
+Tracks patient immunizations and vaccination records with comprehensive medical history.
+
+**FHIR Equivalent:** `Immunization`
+
+**Key Attributes:**
+- ImmunizationID: Unique identifier for the immunization record
+- VaccineName: Name of the vaccine administered
+- DateAdministered: Date when the vaccine was given
+- Dose: Dose information (e.g., dose number in series)
+- Status: Current status of the immunization (e.g., completed, pending, refused)
+
+**Purpose:** Maintains a complete immunization history for clinical decision-making and public health tracking.
+
+---
+
+#### 4. Appointment
+
+Represents scheduled healthcare visits, either fetched from FHIR or added locally within the system.
+
+**FHIR Equivalent:** `Appointment`
+
+**Key Attributes:**
+- AppointmentID: Unique identifier for the appointment
+- Date & Time: Scheduled date and time of the visit
+- Status: Current appointment status (booked, arrived, cancelled)
+- HealthcareProvider: Name or ID of the healthcare provider
+- Notes: Additional notes or special instructions
+
+**Purpose:** Manages and tracks healthcare provider visits, enabling patient reminders and provider scheduling coordination.
+
+---
+
+#### 5. CarePlan
+
+Represents individualized care or vaccination plans tailored for each patient.
+
+**FHIR Equivalent:** `CarePlan`
+
+**Key Attributes:**
+- CarePlanID: Unique identifier for the care plan
+- Goals: Clinical or wellness goals to be achieved
+- Period: Start and end dates of the care plan
+- Activities: Specific actions or interventions included in the plan
+- Status: Current status of the care plan (active, completed, cancelled)
+
+**Purpose:** Provides a structured approach to patient care management with defined goals and measurable activities.
+
+---
+
+#### 6. Communication
+
+Manages reminders, notifications, and messages related to vaccinations or appointments.
+
+**FHIR Equivalent:** `Communication`
+
+**Key Attributes:**
+- CommunicationID: Unique identifier for the communication record
+- Type: Category of communication (notification, reminder, alert)
+- Content: Message content or reminder details
+- Timestamp: Date and time when the communication was created or sent
+- Status: Current status (sent, pending, failed)
+
+**Purpose:** Facilitates patient engagement through timely notifications and vaccination reminders.
+
+---
+
+#### 7. User
+
+Represents internal system users such as Community Health Workers (CHWs), health officers, clinicians, or administrators who interact with the Immunization Planner & Tracker system.
+
+**Key Attributes:**
+- UserID: Unique identifier for the system user
+- Username: Login username for system access
+- Role: User role defining permissions (Admin, CHW, Health Officer, Clinician, etc.)
+- Email: Contact email for the user
+
+**Purpose:** Enables role-based access control and audit trails for system activities.
+
+---
+
+### 7.2 Relationships
+
+The following table outlines the relationships between core entities and their cardinality:
+
+| Relationship | Cardinality | Description |
+|---|---|---|
+| Guardian → Patient | 1 : N | A guardian can be responsible for multiple patients (e.g., multiple children) |
+| Patient → Immunization | 1 : N | A patient can have multiple immunization records over their lifetime |
+| Patient → Appointment | 1 : N | A patient may have multiple appointments across different healthcare providers |
+| Patient → CarePlan | 1 : 1 | Each patient has one active care plan at any given time |
+| User → Immunization | 1 : N | A system user (CHW/admin) may record multiple immunizations |
+
+#### Relationship Details
+
+**Guardian to Patient (1:N)**
+- One guardian can manage immunization records for multiple children or dependents
+- Supports flexible family structures and multiple guardianships
+- Enables grouped reminders and notifications for multiple dependents under one guardian
+
+**Patient to Immunization (1:N)**
+- Patients accumulate immunization records over their lifetime
+- Supports complete vaccine history tracking from birth through adulthood
+- Enables compliance reporting and vaccination gap analysis
+
+**Patient to Appointment (1:N)**
+- Patients can schedule multiple vaccination appointments across different healthcare facilities
+- Tracks appointment history for continuity of care
+- Enables appointment reminders, rescheduling, and follow-up management
+
+**Patient to CarePlan (1:1)**
+- Each patient has one active vaccination care plan at any given time
+- Ensures focused and personalized immunization strategy
+- Previous care plans are maintained for historical reference and audit trails
+
+**User to Immunization (1:N)**
+- System users (CHWs, nurses, clinicians) record and validate multiple immunizations
+- Creates audit trail for quality assurance and regulatory compliance
+- Supports delegation of immunization recording tasks among healthcare workers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
