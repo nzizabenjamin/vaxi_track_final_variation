@@ -36,28 +36,14 @@ The system will:
 
 ### 2.1 Product Perspective
 - Android mobile applications (Parents & CHWs)
-- Web dashboard (Health Officers)
+- Dashboard (Health Officers)
 - Cloud-based backend with FHIR API
-- Integration with NHIS, SMS gateway, and Firebase
 
 ### 2.2 User Classes
 - **Parents/Guardians**: View records, receive reminders  
 - **CHWs**: Register children, record vaccinations, manage appointments  
 - **Health Officers**: View statistics, generate reports  
 - **System Administrators**: Manage users, monitor system
-
-### 2.3 Operating Environment
-- Android 8.0+ (API 26+)
-- 2GB RAM, 1.5GB storage
-- 2G/3G/4G/WiFi, offline support
-- Server: Linux, PostgreSQL 13+, Redis, RabbitMQ
-
-### 2.4 Constraints
-- FHIR R4 compliance
-- Offline operation
-- TLS 1.3, AES-256 encryption
-- English, Kinyarwanda, French support
-- Preference for open-source technologies
 
 ---
 
