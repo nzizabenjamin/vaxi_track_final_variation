@@ -115,7 +115,26 @@ cyubahiro eddy prince
 
 ### Level 1 DFD Detailed Diagram
 ![Level_1_DFD_Detailed.drawio](/uploads/8c5addbb1efa7a7aff5a18592e8e19fc/Level_1_DFD_Detailed.drawio.png){width=770 height=600}
-
 ---
+
+## 5. Prototypes
+
+### 5.1 Login
+![Login](/uploads/fe962e9fa7493bbb019ac905314d85fc/Login.png){width=362 height=600}
+
+### 5.2 Roles
+![Roles](/uploads/dcbcc7dc57835370712c4d194037b781/Roles.png){width=364 height=600}
+
+### 5.3 Parent Dashboard
+![Parent_Dashboard](/uploads/7ada3711a02aa134016a7b4e10460303/Parent_Dashboard.png){width=435 height=600}
+
+### 5.4 CHW Dashboard
+![CHW_Dashboard](/uploads/5a415918d34d594dfc5e604a9fa5a2dc/CHW_Dashboard.png){width=381 height=600}
+
+### 5.5 Registering New Child
+![Register](/uploads/36378b7a777a650c95b67926b64be384/Register.png){width=384 height=600}
+
+### 5.6 Notifications
+![Notifications](/uploads/76b4d2744babbeaf12c1fe540df225dd/Notifications.png){width=379 height=600}
 
 
