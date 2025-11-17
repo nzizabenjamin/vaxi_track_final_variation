@@ -87,5 +87,19 @@ cyubahiro eddy prince
 - Track delivery status
 - Retry failed notifications
 - Respect user preferences
+### 3.6 Reporting and Analytics
+- Coverage reports by area/age
+- Defaulter lists
+- CHW performance metrics
+- Vaccination trends
+- Real-time dashboard
+- Export to PDF, Excel, CSV
+
+### 3.7 Care Plan Management
+- Generate care plan
+- Track progress
+- Update on vaccination
+- Generate certificate
+
 
 
