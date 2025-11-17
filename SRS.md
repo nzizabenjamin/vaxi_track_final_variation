@@ -73,3 +73,19 @@ cyubahiro eddy prince
 - Mark appointments as completed
 
 
+### 3.4 Appointment Management
+- Auto-create appointments
+- Reschedule support
+- Daily appointment list
+- Flag missed appointments
+
+### 3.5 Reminder and Notification System
+- Send reminders (7, 3, 1 days before)
+- SMS and push notifications
+- Personalized messages
+- Escalation for overdue (1, 3, 7, 14 days)
+- Track delivery status
+- Retry failed notifications
+- Respect user preferences
+
+
