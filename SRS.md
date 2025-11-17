@@ -138,3 +138,51 @@ cyubahiro eddy prince
 ![Notifications](/uploads/76b4d2744babbeaf12c1fe540df225dd/Notifications.png){width=379 height=600}
 
 
+--- 
+
+## 6. FHIR Integration
+
+### 6.1 Resources Used
+- Patient
+- Immunization
+- Appointment
+- Communication
+- CarePlan
+
+### 6.2 Sample Patient Resource
+json
+{
+  "resourceType": "Patient",
+  "id": "patient-001",
+  "name": [{"family": "Uwera", "given": ["Aisha"]}],
+  "gender": "female",
+  "birthDate": "2025-02-15",
+  "contact": [{
+    "relationship": [{"text": "Guardian"}],
+    "name": {"text": "Marie Uwera"},
+    "telecom": [{"value": "+250788123456"}]
+  }]
+}
+
+
+### 6.3 Sample Immunization Resource
+json
+{
+  "resourceType": "Immunization",
+  "id": "imm-001",
+  "status": "completed",
+  "vaccineCode": {
+    "coding": [{
+      "system": "http://hl7.org/fhir/sid/cvx",
+      "code": "03",
+      "display": "MMR"
+    }]
+  },
+  "patient": {"reference": "Patient/patient-001"},
+  "occurrenceDateTime": "2025-11-16T09:30:00Z",
+  "lotNumber": "AAJN11K",
+  "location": {"reference": "Location/facility-001"}
+}
+
+
+---
