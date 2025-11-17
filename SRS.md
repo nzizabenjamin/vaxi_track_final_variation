@@ -101,5 +101,21 @@ cyubahiro eddy prince
 - Update on vaccination
 - Generate certificate
 
+## 4. Visual Representation
+
+### 4.1 Use Case Diagram
+![Use Case.png](/uploads/cd327da304b2698759e82c0a82014aed/Use_Case.png){width=700 height=600}
+
+### 4.2 Class Diagram
+![Class_Diagram_Easy](/uploads/5db1e5e19bbd0bbf172dcf80177c2902/Class_Diagram_Easy.png){width=900 height=432}
+
+### 4.3 Data Flow Diagrams
+### Level O DFD Context Diagram
+![Level_0_DFD_Context.drawio](/uploads/9fbef4f274d73497312b49509838a16b/Level_0_DFD_Context.drawio.png){width=900 height=239}
+
+### Level 1 DFD Detailed Diagram
+![Level_1_DFD_Detailed.drawio](/uploads/8c5addbb1efa7a7aff5a18592e8e19fc/Level_1_DFD_Detailed.drawio.png){width=770 height=600}
+
+---
 
 
