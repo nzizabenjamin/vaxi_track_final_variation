@@ -62,3 +62,14 @@ cyubahiro eddy prince
 - Enforce vaccine dependencies and intervals
 - Generate catch-up schedules
 - Update schedule dynamically
+
+### 3.3 Vaccination Recording
+- Record vaccination details
+- Offline recording with sync
+- Validate data
+- Capture lot numbers
+- Barcode scanning
+- Prevent duplicates
+- Mark appointments as completed
+
+
