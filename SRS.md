@@ -46,3 +46,19 @@ The system will:
 - **System Administrators**: Manage users, monitor system
 
 ---
+cyubahiro eddy prince
+## 3. Functional Requirements
+
+### 3.1 Patient Registration and Management
+- Register children with demographics
+- Detect duplicates
+- Update patient info
+- Search by name, ID, phone
+- Link children to guardians
+
+### 3.2 Vaccination Schedule Generation
+- Auto-generate schedule on registration
+- Calculate due dates
+- Enforce vaccine dependencies and intervals
+- Generate catch-up schedules
+- Update schedule dynamically
