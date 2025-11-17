@@ -31,3 +31,18 @@ The system will:
 | API   | Application Programming Interface |
 
 ---
+
+## 2. Overall Description
+
+### 2.1 Product Perspective
+- Android mobile applications (Parents & CHWs)
+- Dashboard (Health Officers)
+- Cloud-based backend with FHIR API
+
+### 2.2 User Classes
+- **Parents/Guardians**: View records, receive reminders  
+- **CHWs**: Register children, record vaccinations, manage appointments  
+- **Health Officers**: View statistics, generate reports  
+- **System Administrators**: Manage users, monitor system
+
+---
