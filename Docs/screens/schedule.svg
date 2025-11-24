@@ -1,0 +1,13 @@
+<svg width="600" height="360" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="360" fill="#F0FDF4"/>
+  <rect x="40" y="30" width="520" height="60" rx="16" fill="#22C55E"/>
+  <text x="70" y="68" font-size="28" font-family="Arial" fill="#fff">Upcoming schedule</text>
+  <rect x="60" y="120" width="480" height="70" rx="20" fill="#fff" stroke="#BBF7D0"/>
+  <text x="80" y="150" font-size="18" font-family="Arial" fill="#064E3B">Uwase Aline • Penta-3</text>
+  <text x="80" y="175" font-size="16" font-family="Arial" fill="#047857">Gahanga HC • 18 Nov, 10:30 • Outreach</text>
+  <rect x="60" y="210" width="480" height="70" rx="20" fill="#fff" stroke="#BBF7D0"/>
+  <text x="80" y="240" font-size="18" font-family="Arial" fill="#064E3B">Kwizera Bosco • Measles 1</text>
+  <text x="80" y="265" font-size="16" font-family="Arial" fill="#047857">Kinyinya HC • 21 Nov, 09:15 • Facility</text>
+</svg>
+
+

@@ -1,0 +1,15 @@
+<svg width="600" height="360" viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="360" fill="#ECFEFF"/>
+  <rect x="160" y="20" width="280" height="60" rx="12" fill="#fff" stroke="#0EA5E9"/>
+  <text x="190" y="60" font-size="28" font-family="Arial" fill="#0F172A">Uwase Aline</text>
+  <rect x="80" y="100" width="440" height="220" rx="28" fill="#fff" stroke="#BAE6FD"/>
+  <text x="110" y="140" font-size="18" font-family="Arial" fill="#0F172A">Caregiver: Alice Uwimana • +250 788 000 111</text>
+  <text x="110" y="180" font-size="18" font-family="Arial" fill="#0F172A">Next vaccine: Penta-3 on 18 Nov 2025</text>
+  <text x="110" y="220" font-size="18" font-family="Arial" fill="#0F172A">Channel: SMS • Village: Gahanga</text>
+  <rect x="110" y="250" width="200" height="40" rx="20" fill="#0EA5E9"/>
+  <text x="150" y="276" font-size="18" font-family="Arial" fill="#fff">View schedule</text>
+  <rect x="350" y="250" width="130" height="40" rx="20" fill="#22C55E"/>
+  <text x="370" y="276" font-size="18" font-family="Arial" fill="#fff">Status: Due</text>
+</svg>
+
+

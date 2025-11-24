@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.App.Button" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/button_container_tint</item>
+        <item name="rippleColor">@color/button_ripple_tint</item>
+    </style>
+
+    <style name="Widget.App.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="backgroundTint">@color/button_container_tint</item>
+        <item name="strokeColor">@color/button_hover_green</item>
+        <item name="rippleColor">@color/button_ripple_tint</item>
+    </style>
+
+    <style name="Widget.App.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="rippleColor">@color/button_ripple_tint</item>
+    </style>
+
+</resources>
+

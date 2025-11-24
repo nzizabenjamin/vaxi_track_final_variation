@@ -1,0 +1,18 @@
+<svg width="600" height="360" viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="360" fill="#F5F3FF"/>
+  <rect x="40" y="40" width="520" height="140" rx="24" fill="url(#grad1)"/>
+  <text x="70" y="90" font-size="24" font-family="Arial" fill="#fff">Hello, CHW Ruth 👋</text>
+  <text x="70" y="125" font-size="32" font-weight="bold" font-family="Arial" fill="#fff">5 children due this week</text>
+  <rect x="60" y="200" width="480" height="50" rx="18" fill="#fff" stroke="#D5D3F0"/>
+  <text x="80" y="232" font-size="18" font-family="Arial" fill="#111827">Uwase Aline • Penta-3 • Due in 2 days</text>
+  <rect x="60" y="260" width="480" height="50" rx="18" fill="#fff" stroke="#D5D3F0"/>
+  <text x="80" y="292" font-size="18" font-family="Arial" fill="#111827">Kwizera Bosco • Measles 1 • Overdue</text>
+  <defs>
+    <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+
