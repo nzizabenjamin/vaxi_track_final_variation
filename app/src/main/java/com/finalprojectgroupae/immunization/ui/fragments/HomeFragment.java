@@ -1,4 +1,4 @@
-package com.finalprojectgroupae.immunization.ui;
+package com.finalprojectgroupae.immunization.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.finalprojectgroupae.immunization.MainActivity;
+import com.finalprojectgroupae.immunization.activities.MainActivity;
 import com.finalprojectgroupae.immunization.R;
 import com.finalprojectgroupae.immunization.data.DemoDataProvider;
 import com.finalprojectgroupae.immunization.data.model.Child;

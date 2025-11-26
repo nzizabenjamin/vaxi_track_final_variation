@@ -1,4 +1,4 @@
-package com.finalprojectgroupae.immunization;
+package com.finalprojectgroupae.immunization.activities;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.finalprojectgroupae.immunization.R;
 import com.finalprojectgroupae.immunization.data.AuthManager;
 import com.finalprojectgroupae.immunization.databinding.ActivitySignUpBinding;
 import com.google.android.material.button.MaterialButtonToggleGroup;

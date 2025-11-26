@@ -1,4 +1,4 @@
-package com.finalprojectgroupae.immunization.ui;
+package com.finalprojectgroupae.immunization.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

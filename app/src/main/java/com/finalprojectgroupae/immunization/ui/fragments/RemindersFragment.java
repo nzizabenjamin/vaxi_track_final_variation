@@ -1,4 +1,4 @@
-package com.finalprojectgroupae.immunization.ui;
+package com.finalprojectgroupae.immunization.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,30 +11,30 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.finalprojectgroupae.immunization.data.DemoDataProvider;
-import com.finalprojectgroupae.immunization.databinding.FragmentScheduleBinding;
-import com.finalprojectgroupae.immunization.ui.adapters.AppointmentAdapter;
+import com.finalprojectgroupae.immunization.databinding.FragmentRemindersBinding;
+import com.finalprojectgroupae.immunization.ui.adapters.ReminderAdapter;
 
-public class ScheduleFragment extends Fragment {
+public class RemindersFragment extends Fragment {
 
-    public static final String TAG = "ScheduleFragment";
+    public static final String TAG = "RemindersFragment";
 
-    private FragmentScheduleBinding binding;
-    private AppointmentAdapter adapter;
+    private FragmentRemindersBinding binding;
+    private ReminderAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentScheduleBinding.inflate(inflater, container, false);
+        binding = FragmentRemindersBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new AppointmentAdapter();
-        binding.recyclerAppointments.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerAppointments.setAdapter(adapter);
-        adapter.submitList(DemoDataProvider.getUpcomingAppointments());
+        adapter = new ReminderAdapter();
+        binding.recyclerReminders.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerReminders.setAdapter(adapter);
+        adapter.submitList(DemoDataProvider.getReminderQueue());
     }
 
     @Override

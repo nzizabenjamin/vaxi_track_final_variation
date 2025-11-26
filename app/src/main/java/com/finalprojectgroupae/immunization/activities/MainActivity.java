@@ -1,4 +1,4 @@
-package com.finalprojectgroupae.immunization;
+package com.finalprojectgroupae.immunization.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.finalprojectgroupae.immunization.R;
 import com.finalprojectgroupae.immunization.data.AuthManager;
 import com.finalprojectgroupae.immunization.databinding.ActivityMainBinding;
-import com.finalprojectgroupae.immunization.ui.ChildDetailFragment;
-import com.finalprojectgroupae.immunization.ui.DashboardFragment;
-import com.finalprojectgroupae.immunization.ui.HomeFragment;
-import com.finalprojectgroupae.immunization.ui.RemindersFragment;
-import com.finalprojectgroupae.immunization.ui.ScheduleFragment;
+import com.finalprojectgroupae.immunization.ui.fragments.ChildDetailFragment;
+import com.finalprojectgroupae.immunization.ui.fragments.DashboardFragment;
+import com.finalprojectgroupae.immunization.ui.fragments.HomeFragment;
+import com.finalprojectgroupae.immunization.ui.fragments.RemindersFragment;
+import com.finalprojectgroupae.immunization.ui.fragments.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity {
 
