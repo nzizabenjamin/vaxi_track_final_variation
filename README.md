@@ -119,6 +119,7 @@ Bottom navigation bar with tabs: Home | Vaccines | Appointments | Profile
 
 #### 🧩 Sample JSON Example
 
+
 json
 {
   "resourceType": "Immunization",
@@ -129,12 +130,26 @@ json
 }
 
 
+
 ---
 
 ### 🔔 *SECTION 7 — Notifications & Reminders (25231)*
 
 #### ⏰ Reminder System
 
+* Android AlarmManager triggers notifications before vaccine due dates
+* Firebase Cloud Messaging used for real-time alerts if connected to server
+
+#### 🔄 Notification Flow
+
+1. Retrieve vaccine due dates from CarePlan
+2. Schedule local notifications using AlarmManager
+3. Log each reminder via Communication resource
+
+#### 📨 Example Use Case
+
+> “John (Age 1) is due for Polio Vaccine tomorrow.”
+> Parents receive push notification 24h before and on the day of vaccination.
 
 ---
 
