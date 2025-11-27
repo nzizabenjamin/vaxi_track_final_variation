@@ -46,7 +46,7 @@ The system will:
 - **System Administrators**: Manage users, monitor system
 
 ---
-cyubahiro eddy prince
+
 ## 3. Functional Requirements
 
 ### 3.1 Patient Registration and Management
