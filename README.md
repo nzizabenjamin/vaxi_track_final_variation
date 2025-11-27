@@ -1,6 +1,5 @@
 ## 🩺 *VaxiTrack — Smart Immunization Planner & Tracker*
 
----
 
 ### 🧩 *SECTION 1 — Project Overview (Ruth Ishimwe Gwiza, ID: 26082)*
 
@@ -66,7 +65,7 @@ Many children miss vaccines due to poor follow-up and manual tracking. VaxiTrack
 #### 🖌 Design Approach
 
 * Minimal, health-oriented interface using Material Design
-* Color theme: Blue (#2F80ED), White (#FFFFFF), and Soft Green (#27AE60)
+* Color theme: Blue (#4B5C92), White (#FFFFFF), and Soft Green (#32628D)
 * Focused on readability and ease of navigation
 
 #### 📱 Main Screens
@@ -104,9 +103,10 @@ Bottom navigation bar with tabs: Home | Vaccines | Appointments | Profile
 
 ---
 
-### 🧠 *SECTION 6 — FHIR API Integration ([Member 6])*
+### 🧠 *SECTION 6 — FHIR API Integration (26078)*
 
 #### 🌐 API Endpoints Used
+🔗 System Layers
 
 | Resource      | Endpoint Example             | Description                  |
 | ------------- | ---------------------------- | ---------------------------- |
@@ -130,7 +130,9 @@ json
 
 ---
 
-### 🔔 *SECTION 7 — Notifications & Reminders ([Member 7])*
+---
+
+### 🔔 *SECTION 7 — Notifications & Reminders (25231)*
 
 #### ⏰ Reminder System
 
@@ -150,7 +152,7 @@ json
 
 ---
 
-### 🧪 *SECTION 8 — Testing & Evaluation ([Member 8])*
+### 🧪 *SECTION 8 — Testing & Evaluation (26506)*
 
 #### 🧠 Testing Strategy
 
@@ -170,7 +172,7 @@ json
 
 ---
 
-### 🌍 *SECTION 9 — Impact & Future Work ([Member 9])*
+### 🌍 *SECTION 9 — Impact & Future Work (26084)*
 
 #### 💪 Social Impact
 
@@ -188,7 +190,7 @@ json
 
 ---
 
-### 👥 *SECTION 10 — Team & Collaboration ([Member 10])*
+### 👥 *SECTION 10 — Team & Collaboration (25948)*
 
 #### 👨‍💻 Team Members
 
@@ -199,9 +201,10 @@ json
 | Ndjogou Mpira O. David | 25713 | 
 | Nziza Benjamin         | 26240 | 
 | Cyubahiro Eddy Prince  | 24881 |
-| [Member 6]             | [ID]  | 
-| [Member 7]             | [ID]  | 
-| [Member 8]             | [ID]  | 
-| [Member 9]             | [ID]  | 
-| [Member 10]            | [ID]  | 
+| Theoneste              | 26078 | 
+| Kid Davinah            | 25231 | 
+| Munezero Eugene        | 26506 | 
+| Serge Dukuziyaremye    | 26084 | 
+| Ineza                  | 25948 | 
+
 
