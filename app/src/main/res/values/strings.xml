@@ -1,5 +1,4 @@
 <resources>
-<<<<<<< HEAD
     <string name="app_name">Immunization Planner</string>
     <string name="back">Back</string>
     <string name="nav_home">Roster</string>
@@ -70,7 +69,3 @@
 </resources>
 
 
-=======
-    <string name="app_name">VaxiTrack</string>
-</resources>
->>>>>>> origin/dev

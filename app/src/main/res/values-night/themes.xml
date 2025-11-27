@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <resources>
     <style name="Theme.FinalProjectGroupAe" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -17,12 +16,3 @@
 </resources>
 
 
-=======
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.VaxiTrack" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-    </style>
-</resources>
->>>>>>> origin/dev

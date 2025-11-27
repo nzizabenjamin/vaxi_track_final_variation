@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
     <color name="md_theme_primary">#2453AC</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#426CC6</color>
@@ -168,8 +167,3 @@
     <color name="colorSuccess">#2E8F5B</color>
 <color name="button_hover_green">#1B8A5A</color>
 </resources>
-=======
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-</resources>
->>>>>>> origin/dev
