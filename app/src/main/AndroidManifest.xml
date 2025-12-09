@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ============================================ -->
+    <!-- PERMISSIONS -->
+    <!-- ============================================ -->
+
+    <!-- Internet & Network -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- SMS for reminders -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <!-- Notifications (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Alarms for scheduled reminders -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
+    <!-- Boot receiver to reschedule alarms after device restart -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Camera for barcode scanning -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <!-- Wake lock for background sync -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Foreground service for sync operations -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
         android:allowBackup="true"
@@ -7,30 +42,148 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FinalProjectGroupAe">
+        android:theme="@style/Theme.FinalProjectGroupAe"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:targetApi="31">
+
+        <!-- ============================================ -->
+        <!-- ACTIVITIES -->
+        <!-- ============================================ -->
+
+        <!-- Login Activity (Launcher) -->
         <activity
-            android:name=".activities.SignUpActivity"
-            android:exported="false"
-            android:label="@string/signup_title"
-            android:theme="@style/Theme.FinalProjectGroupAe" />
-        <activity
-            android:name=".activities.LoginActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.FinalProjectGroupAe">
+            android:theme="@style/Theme.FinalProjectGroupAe"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Sign Up Activity -->
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".SignUpActivity"
+            android:exported="false"
+            android:label="@string/signup_title"
+            android:theme="@style/Theme.FinalProjectGroupAe"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity" />
+        </activity>
+
+        <!-- Main Activity -->
+        <activity
+            android:name=".MainActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Theme.FinalProjectGroupAe" />
+            android:theme="@style/Theme.FinalProjectGroupAe"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop" />
+
+        <!-- ============================================ -->
+        <!-- SERVICES -->
+        <!-- ============================================ -->
+
+        <!-- Background Sync Service -->
+        <service
+            android:name=".services.sync.BackgroundSyncService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <!-- ============================================ -->
+        <!-- BROADCAST RECEIVERS -->
+        <!-- ============================================ -->
+
+        <!-- Boot Receiver - Reschedule alarms after device restart -->
+        <receiver
+            android:name=".receivers.BootReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Alarm Receiver - Handle scheduled notifications -->
+        <receiver
+            android:name=".receivers.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.finalprojectgroupae.immunization.SEND_REMINDER" />
+                <action android:name="com.finalprojectgroupae.immunization.CHECK_OVERDUE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Network Change Receiver - Trigger sync when network available -->
+        <receiver
+            android:name=".receivers.NetworkChangeReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ============================================ -->
+        <!-- WORK MANAGER -->
+        <!-- ============================================ -->
+
+        <!-- WorkManager initialization -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+        <!-- ============================================ -->
+        <!-- CONTENT PROVIDERS -->
+        <!-- ============================================ -->
+
+        <!-- File Provider for sharing vaccination reports/certificates -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- ============================================ -->
+        <!-- METADATA -->
+        <!-- ============================================ -->
+
+        <!-- ML Kit Barcode Scanning -->
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <!-- Disable automatic WorkManager initialization (we'll do it manually) -->
+        <meta-data
+            android:name="androidx.work.WorkManagerInitializer"
+            android:value="androidx.startup"
+            tools:node="remove" />
+
     </application>
 
 </manifest>
-
-

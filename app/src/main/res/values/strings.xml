@@ -66,6 +66,36 @@
     <string name="action_view_roster">View roster</string>
     <string name="action_open_schedule">Open schedule</string>
     <string name="action_review_reminders">Review reminders</string>
+
+    <!-- PERMISSIONS -->
+    <string name="permission_camera_rationale">Camera permission is needed to scan vaccine lot number barcodes</string>
+    <string name="permission_sms_rationale">SMS permission is needed to send vaccination reminders to guardians</string>
+    <string name="permission_notification_rationale">Notification permission is needed to remind you about upcoming vaccinations</string>
+    <string name="permission_denied">Permission denied. Some features may not work properly.</string>
+
+    <!-- NOTIFICATIONS -->
+    <string name="notification_channel_reminders_name">Vaccination Reminders</string>
+    <string name="notification_channel_reminders_description">Notifications for upcoming vaccination appointments</string>
+    <string name="notification_channel_sync_name">Data Synchronization</string>
+    <string name="notification_channel_sync_description">Notifications for background data sync</string>
+    <string name="notification_reminder_title">Vaccination Reminder</string>
+    <string name="notification_sync_title">Syncing Data</string>
+    <string name="notification_sync_success">Data synced successfully</string>
+    <string name="notification_sync_failed">Sync failed. Will retry later.</string>
+
+    <!-- SYNC -->
+    <string name="sync_in_progress">Syncing data to cloud…</string>
+    <string name="sync_completed">Sync completed successfully</string>
+    <string name="sync_failed">Sync failed: %1$s</string>
+    <string name="sync_no_network">No internet connection. Data will sync when online.</string>
+
+    <!-- ERRORS -->
+    <string name="error_network">No internet connection</string>
+    <string name="error_sync_failed">Failed to sync data</string>
+    <string name="error_loading_data">Error loading data</string>
+    <string name="error_saving_data">Error saving data</string>
+    <string name="error_invalid_lot_number">Invalid lot number format</string>
+
 </resources>
 
 
