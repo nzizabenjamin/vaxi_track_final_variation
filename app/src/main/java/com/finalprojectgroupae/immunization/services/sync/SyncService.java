@@ -35,7 +35,8 @@ public class SyncService {
         this.application = application;
         this.patientRepository = new PatientRepository(application);
         this.immunizationRepository = new ImmunizationRepository(application);
-        this.fhirApiService = RetrofitClient.getInstance().create(FhirApiService.class);
+        // FIXED: Use new method signature
+        this.fhirApiService = RetrofitClient.getInstance().getApiService();
     }
 
     public void setSyncListener(SyncListener listener) {

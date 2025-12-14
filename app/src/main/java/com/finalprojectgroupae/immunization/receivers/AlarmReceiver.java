@@ -11,7 +11,7 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
-import com.finalprojectgroupae.immunization.MainActivity;
+import com.finalprojectgroupae.immunization.activities.MainActivity;
 import com.finalprojectgroupae.immunization.R;
 
 public class AlarmReceiver extends BroadcastReceiver {

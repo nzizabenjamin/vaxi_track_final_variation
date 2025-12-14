@@ -42,7 +42,8 @@ public class RetrofitClient {
         return instance;
     }
 
-    public  T create(Class serviceClass) {
-        return retrofit.create(serviceClass);
+    // FIXED: Removed generic type parameter T to fix "Cannot resolve symbol 'T'" error
+    public FhirApiService getApiService() {
+        return retrofit.create(FhirApiService.class);
     }
 }

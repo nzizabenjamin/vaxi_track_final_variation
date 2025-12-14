@@ -2,12 +2,10 @@ package com.finalprojectgroupae.immunization.data.local;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.finalprojectgroupae.immunization.data.local.dao.*;
 import com.finalprojectgroupae.immunization.data.local.entities.*;
@@ -27,8 +25,8 @@ import java.util.concurrent.Executors;
                 AppointmentEntity.class,
                 NotificationEntity.class
         },
-        version = Constants.DATABASE_VERSION,
-        exportSchema = true
+        version = 1,
+        exportSchema = false
 )
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
@@ -60,229 +58,143 @@ public abstract class AppDatabase extends RoomDatabase {
                                     AppDatabase.class,
                                     Constants.DATABASE_NAME
                             )
-                            .addCallback(sRoomDatabaseCallback)
-                            .fallbackToDestructiveMigration() // For development only
+                            .fallbackToDestructiveMigration()
                             .build();
+
+                    // Populate initial data
+                    populateInitialData();
                 }
             }
         }
         return INSTANCE;
     }
 
-    // Callback to populate database on first creation
-    private static final RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            databaseWriteExecutor.execute(() -> {
-                // Populate vaccine definitions
-                AppDatabase database = getInstance(null);
-                populateVaccineDefinitions(database);
-                populateVaccineDoses(database);
-            });
-        }
-    };
+    private static void populateInitialData() {
+        databaseWriteExecutor.execute(() -> {
+            if (INSTANCE != null) {
+                VaccineDefinitionDao vaccineDao = INSTANCE.vaccineDefinitionDao();
+                VaccineDoseDao doseDao = INSTANCE.vaccineDoseDao();
 
-    private static void populateVaccineDefinitions(AppDatabase db) {
-        VaccineDefinitionDao dao = db.vaccineDefinitionDao();
+                // Check if data already exists
+                try {
+                    java.util.List<VaccineDefinitionEntity> existing = vaccineDao.getAllVaccines();
+                    if (existing != null && !existing.isEmpty()) {
+                        return; // Data already populated
+                    }
+                } catch (Exception e) {
+                    // First run, continue with population
+                }
 
+                // Populate vaccines
+                insertVaccineDefinitions(vaccineDao);
+
+                // Populate doses
+                insertVaccineDoses(doseDao);
+            }
+        });
+    }
+
+    private static void insertVaccineDefinitions(VaccineDefinitionDao dao) {
         // BCG
         VaccineDefinitionEntity bcg = new VaccineDefinitionEntity();
         bcg.setVaccineDefId("VAC-BCG");
-        bcg.setVaccineName("BCG (Bacillus Calmette-Guérin)");
-        bcg.setVaccineCode(Constants.VACCINE_BCG);
-        bcg.setDescription("Protects against tuberculosis");
+        bcg.setVaccineName("BCG");
+        bcg.setVaccineCode("19");
+        bcg.setDescription("Tuberculosis vaccine");
         bcg.setDisplayOrder(1);
         dao.insert(bcg);
 
         // OPV
         VaccineDefinitionEntity opv = new VaccineDefinitionEntity();
         opv.setVaccineDefId("VAC-OPV");
-        opv.setVaccineName("OPV (Oral Polio Vaccine)");
-        opv.setVaccineCode(Constants.VACCINE_OPV);
-        opv.setDescription("Protects against poliomyelitis");
+        opv.setVaccineName("OPV");
+        opv.setVaccineCode("02");
+        opv.setDescription("Oral Polio Vaccine");
         opv.setDisplayOrder(2);
         dao.insert(opv);
 
         // Pentavalent
         VaccineDefinitionEntity penta = new VaccineDefinitionEntity();
         penta.setVaccineDefId("VAC-PENTA");
-        penta.setVaccineName("Pentavalent (5-in-1)");
-        penta.setVaccineCode(Constants.VACCINE_PENTA);
-        penta.setDescription("Protects against DTP, Hepatitis B, and Hib");
+        penta.setVaccineName("Pentavalent");
+        penta.setVaccineCode("20");
+        penta.setDescription("5-in-1 vaccine");
         penta.setDisplayOrder(3);
         dao.insert(penta);
 
         // PCV
         VaccineDefinitionEntity pcv = new VaccineDefinitionEntity();
         pcv.setVaccineDefId("VAC-PCV");
-        pcv.setVaccineName("PCV (Pneumococcal Conjugate Vaccine)");
-        pcv.setVaccineCode(Constants.VACCINE_PCV);
-        pcv.setDescription("Protects against pneumococcal disease");
+        pcv.setVaccineName("PCV");
+        pcv.setVaccineCode("133");
+        pcv.setDescription("Pneumococcal vaccine");
         pcv.setDisplayOrder(4);
         dao.insert(pcv);
 
         // Rotavirus
         VaccineDefinitionEntity rota = new VaccineDefinitionEntity();
         rota.setVaccineDefId("VAC-ROTA");
-        rota.setVaccineName("Rotavirus Vaccine");
-        rota.setVaccineCode(Constants.VACCINE_ROTA);
-        rota.setDescription("Protects against rotavirus gastroenteritis");
+        rota.setVaccineName("Rotavirus");
+        rota.setVaccineCode("122");
+        rota.setDescription("Rotavirus vaccine");
         rota.setDisplayOrder(5);
         dao.insert(rota);
 
         // MMR
         VaccineDefinitionEntity mmr = new VaccineDefinitionEntity();
         mmr.setVaccineDefId("VAC-MMR");
-        mmr.setVaccineName("MMR (Measles-Rubella)");
-        mmr.setVaccineCode(Constants.VACCINE_MMR);
-        mmr.setDescription("Protects against measles and rubella");
+        mmr.setVaccineName("MMR");
+        mmr.setVaccineCode("03");
+        mmr.setDescription("Measles-Rubella vaccine");
         mmr.setDisplayOrder(6);
         dao.insert(mmr);
     }
 
-    private static void populateVaccineDoses(AppDatabase db) {
-        VaccineDoseDao dao = db.vaccineDoseDao();
+    private static void insertVaccineDoses(VaccineDoseDao dao) {
+        // BCG at birth
+        VaccineDoseEntity dose = new VaccineDoseEntity();
+        dose.setDoseId("DOSE-BCG-1");
+        dose.setVaccineDefId("VAC-BCG");
+        dose.setDoseNumber(1);
+        dose.setAgeInWeeks(0);
+        dose.setMinIntervalDays(0);
+        dose.setDisplayOrder(1);
+        dao.insert(dose);
 
-        // BCG - At birth
-        VaccineDoseEntity bcgDose = new VaccineDoseEntity();
-        bcgDose.setDoseId("DOSE-BCG-1");
-        bcgDose.setVaccineDefId("VAC-BCG");
-        bcgDose.setDoseNumber(1);
-        bcgDose.setAgeInWeeks(0); // At birth
-        bcgDose.setMinIntervalDays(0);
-        bcgDose.setDisplayOrder(1);
-        dao.insert(bcgDose);
+        // OPV doses
+        insertDose(dao, "DOSE-OPV-0", "VAC-OPV", 0, 0, 0, 2);
+        insertDose(dao, "DOSE-OPV-1", "VAC-OPV", 1, 6, 28, 3);
+        insertDose(dao, "DOSE-OPV-2", "VAC-OPV", 2, 10, 28, 4);
+        insertDose(dao, "DOSE-OPV-3", "VAC-OPV", 3, 14, 28, 5);
 
-        // OPV - At birth and 6, 10, 14 weeks
-        VaccineDoseEntity opv0 = new VaccineDoseEntity();
-        opv0.setDoseId("DOSE-OPV-0");
-        opv0.setVaccineDefId("VAC-OPV");
-        opv0.setDoseNumber(0);
-        opv0.setAgeInWeeks(0);
-        opv0.setMinIntervalDays(0);
-        opv0.setDisplayOrder(2);
-        dao.insert(opv0);
+        // Pentavalent doses
+        insertDose(dao, "DOSE-PENTA-1", "VAC-PENTA", 1, 6, 0, 6);
+        insertDose(dao, "DOSE-PENTA-2", "VAC-PENTA", 2, 10, 28, 7);
+        insertDose(dao, "DOSE-PENTA-3", "VAC-PENTA", 3, 14, 28, 8);
 
-        VaccineDoseEntity opv1 = new VaccineDoseEntity();
-        opv1.setDoseId("DOSE-OPV-1");
-        opv1.setVaccineDefId("VAC-OPV");
-        opv1.setDoseNumber(1);
-        opv1.setAgeInWeeks(6);
-        opv1.setMinIntervalDays(28);
-        opv1.setDisplayOrder(3);
-        dao.insert(opv1);
+        // PCV doses
+        insertDose(dao, "DOSE-PCV-1", "VAC-PCV", 1, 6, 0, 9);
+        insertDose(dao, "DOSE-PCV-2", "VAC-PCV", 2, 10, 28, 10);
+        insertDose(dao, "DOSE-PCV-3", "VAC-PCV", 3, 14, 28, 11);
 
-        VaccineDoseEntity opv2 = new VaccineDoseEntity();
-        opv2.setDoseId("DOSE-OPV-2");
-        opv2.setVaccineDefId("VAC-OPV");
-        opv2.setDoseNumber(2);
-        opv2.setAgeInWeeks(10);
-        opv2.setMinIntervalDays(28);
-        opv2.setDisplayOrder(4);
-        dao.insert(opv2);
+        // Rotavirus doses
+        insertDose(dao, "DOSE-ROTA-1", "VAC-ROTA", 1, 6, 0, 12);
+        insertDose(dao, "DOSE-ROTA-2", "VAC-ROTA", 2, 10, 28, 13);
 
-        VaccineDoseEntity opv3 = new VaccineDoseEntity();
-        opv3.setDoseId("DOSE-OPV-3");
-        opv3.setVaccineDefId("VAC-OPV");
-        opv3.setDoseNumber(3);
-        opv3.setAgeInWeeks(14);
-        opv3.setMinIntervalDays(28);
-        opv3.setDisplayOrder(5);
-        dao.insert(opv3);
+        // MMR doses
+        insertDose(dao, "DOSE-MMR-1", "VAC-MMR", 1, 36, 0, 14);
+        insertDose(dao, "DOSE-MMR-2", "VAC-MMR", 2, 65, 168, 15);
+    }
 
-        // Pentavalent - 6, 10, 14 weeks
-        VaccineDoseEntity penta1 = new VaccineDoseEntity();
-        penta1.setDoseId("DOSE-PENTA-1");
-        penta1.setVaccineDefId("VAC-PENTA");
-        penta1.setDoseNumber(1);
-        penta1.setAgeInWeeks(6);
-        penta1.setMinIntervalDays(0);
-        penta1.setDisplayOrder(6);
-        dao.insert(penta1);
-
-        VaccineDoseEntity penta2 = new VaccineDoseEntity();
-        penta2.setDoseId("DOSE-PENTA-2");
-        penta2.setVaccineDefId("VAC-PENTA");
-        penta2.setDoseNumber(2);
-        penta2.setAgeInWeeks(10);
-        penta2.setMinIntervalDays(28);
-        penta2.setDisplayOrder(7);
-        dao.insert(penta2);
-
-        VaccineDoseEntity penta3 = new VaccineDoseEntity();
-        penta3.setDoseId("DOSE-PENTA-3");
-        penta3.setVaccineDefId("VAC-PENTA");
-        penta3.setDoseNumber(3);
-        penta3.setAgeInWeeks(14);
-        penta3.setMinIntervalDays(28);
-        penta3.setDisplayOrder(8);
-        dao.insert(penta3);
-
-        // PCV - 6, 10, 14 weeks
-        VaccineDoseEntity pcv1 = new VaccineDoseEntity();
-        pcv1.setDoseId("DOSE-PCV-1");
-        pcv1.setVaccineDefId("VAC-PCV");
-        pcv1.setDoseNumber(1);
-        pcv1.setAgeInWeeks(6);
-        pcv1.setMinIntervalDays(0);
-        pcv1.setDisplayOrder(9);
-        dao.insert(pcv1);
-
-        VaccineDoseEntity pcv2 = new VaccineDoseEntity();
-        pcv2.setDoseId("DOSE-PCV-2");
-        pcv2.setVaccineDefId("VAC-PCV");
-        pcv2.setDoseNumber(2);
-        pcv2.setAgeInWeeks(10);
-        pcv2.setMinIntervalDays(28);
-        pcv2.setDisplayOrder(10);
-        dao.insert(pcv2);
-
-        VaccineDoseEntity pcv3 = new VaccineDoseEntity();
-        pcv3.setDoseId("DOSE-PCV-3");
-        pcv3.setVaccineDefId("VAC-PCV");
-        pcv3.setDoseNumber(3);
-        pcv3.setAgeInWeeks(14);
-        pcv3.setMinIntervalDays(28);
-        pcv3.setDisplayOrder(11);
-        dao.insert(pcv3);
-
-        // Rotavirus - 6, 10 weeks
-        VaccineDoseEntity rota1 = new VaccineDoseEntity();
-        rota1.setDoseId("DOSE-ROTA-1");
-        rota1.setVaccineDefId("VAC-ROTA");
-        rota1.setDoseNumber(1);
-        rota1.setAgeInWeeks(6);
-        rota1.setMinIntervalDays(0);
-        rota1.setDisplayOrder(12);
-        dao.insert(rota1);
-
-        VaccineDoseEntity rota2 = new VaccineDoseEntity();
-        rota2.setDoseId("DOSE-ROTA-2");
-        rota2.setVaccineDefId("VAC-ROTA");
-        rota2.setDoseNumber(2);
-        rota2.setAgeInWeeks(10);
-        rota2.setMinIntervalDays(28);
-        rota2.setDisplayOrder(13);
-        dao.insert(rota2);
-
-        // MMR - 9 months and 15 months
-        VaccineDoseEntity mmr1 = new VaccineDoseEntity();
-        mmr1.setDoseId("DOSE-MMR-1");
-        mmr1.setVaccineDefId("VAC-MMR");
-        mmr1.setDoseNumber(1);
-        mmr1.setAgeInWeeks(36); // 9 months
-        mmr1.setMinIntervalDays(0);
-        mmr1.setDisplayOrder(14);
-        dao.insert(mmr1);
-
-        VaccineDoseEntity mmr2 = new VaccineDoseEntity();
-        mmr2.setDoseId("DOSE-MMR-2");
-        mmr2.setVaccineDefId("VAC-MMR");
-        mmr2.setDoseNumber(2);
-        mmr2.setAgeInWeeks(65); // 15 months (65 weeks)
-        mmr2.setMinIntervalDays(168); // 24 weeks minimum
-        mmr2.setDisplayOrder(15);
-        dao.insert(mmr2);
+    private static void insertDose(VaccineDoseDao dao, String doseId, String vaccineDefId,
+                                   int doseNumber, int ageInWeeks, int minIntervalDays, int displayOrder) {
+        VaccineDoseEntity dose = new VaccineDoseEntity();
+        dose.setDoseId(doseId);
+        dose.setVaccineDefId(vaccineDefId);
+        dose.setDoseNumber(doseNumber);
+        dose.setAgeInWeeks(ageInWeeks);
+        dose.setMinIntervalDays(minIntervalDays);
+        dose.setDisplayOrder(displayOrder);
+        dao.insert(dose);
     }
 }
