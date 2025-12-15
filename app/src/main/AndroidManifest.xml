@@ -90,6 +90,34 @@
             android:screenOrientation="portrait"
             android:launchMode="singleTop" />
 
+        <!-- Patient Registration Activity -->
+        <activity
+            android:name=".activities.PatientRegistrationActivity"
+            android:exported="false"
+            android:label="Register New Child"
+            android:theme="@style/Theme.FinalProjectGroupAe"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+
+        <!-- Record Vaccination Activity -->
+        <activity
+            android:name=".activities.RecordVaccinationActivity"
+            android:exported="false"
+            android:label="Record Vaccination"
+            android:theme="@style/Theme.FinalProjectGroupAe"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+
         <!-- ============================================ -->
         <!-- SERVICES -->
         <!-- ============================================ -->

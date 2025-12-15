@@ -1,15 +1,21 @@
 package com.finalprojectgroupae.immunization.services.notification;
 
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.finalprojectgroupae.immunization.data.local.entities.NotificationEntity;
 import com.finalprojectgroupae.immunization.data.local.entities.PatientEntity;
 import com.finalprojectgroupae.immunization.data.local.entities.ScheduledDoseEntity;
 import com.finalprojectgroupae.immunization.data.local.entities.VaccineDoseEntity;
+import com.finalprojectgroupae.immunization.data.repository.NotificationRepository;
 import com.finalprojectgroupae.immunization.data.repository.PatientRepository;
 import com.finalprojectgroupae.immunization.data.repository.ScheduledDoseRepository;
 import com.finalprojectgroupae.immunization.data.repository.VaccineDoseRepository;
+import com.finalprojectgroupae.immunization.receivers.AlarmReceiver;
 import com.finalprojectgroupae.immunization.utils.Constants;
 import com.finalprojectgroupae.immunization.utils.DateUtils;
 import com.finalprojectgroupae.immunization.utils.IdGenerator;
@@ -29,12 +35,16 @@ public class NotificationScheduler {
     private final ScheduledDoseRepository scheduledDoseRepository;
     private final VaccineDoseRepository vaccineDoseRepository;
     private final PatientRepository patientRepository;
+    private final NotificationRepository notificationRepository;
+    private final AlarmManager alarmManager;
 
     public NotificationScheduler(Application application) {
         this.application = application;
         this.scheduledDoseRepository = new ScheduledDoseRepository(application);
         this.vaccineDoseRepository = new VaccineDoseRepository(application);
         this.patientRepository = new PatientRepository(application);
+        this.notificationRepository = new NotificationRepository(application);
+        this.alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
     }
 
     /**
@@ -49,18 +59,20 @@ public class NotificationScheduler {
             }
 
             // Get patient info for notification
-            patientRepository.getUnsyncedPatients(patients -> {
-                // This is a workaround - ideally use getPatientById
-                // For now, create notifications with placeholder
-                createNotifications(scheduledDose, dose);
+            patientRepository.getPatientById(scheduledDose.getPatientId()).observeForever(patient -> {
+                if (patient == null) {
+                    Log.e(TAG, "Patient not found: " + scheduledDose.getPatientId());
+                    return;
+                }
+                createNotifications(scheduledDose, dose, patient);
             });
         });
     }
 
     /**
-     * Create notification entities
+     * Create notification entities and schedule alarms
      */
-    private void createNotifications(ScheduledDoseEntity scheduledDose, VaccineDoseEntity dose) {
+    private void createNotifications(ScheduledDoseEntity scheduledDose, VaccineDoseEntity dose, PatientEntity patient) {
         List<NotificationEntity> notifications = new ArrayList<>();
 
         // Parse reminder days from JSON
@@ -75,21 +87,57 @@ public class NotificationScheduler {
                 NotificationEntity notification = new NotificationEntity();
                 notification.setNotificationId(IdGenerator.generateNotificationId());
                 notification.setScheduledDoseId(scheduledDose.getScheduledDoseId());
+                notification.setRecipientId(patient.getGuardianId());
+                notification.setRecipientPhone(patient.getGuardianPhone());
                 notification.setType(Constants.NOTIFICATION_TYPE_SMS);
                 notification.setScheduledSendDate(reminderDate);
                 notification.setStatus("pending");
 
                 // Build message
-                String message = buildReminderMessage(scheduledDose, daysBefore);
+                String message = buildReminderMessage(scheduledDose, daysBefore, patient);
                 notification.setMessage(message);
 
                 notifications.add(notification);
+                
+                // Schedule alarm
+                scheduleAlarm(notification, patient);
+                
                 Log.i(TAG, "Notification scheduled for " + DateUtils.formatForDisplay(reminderDate));
             }
         }
 
         // Save notifications to database
-        // (Requires NotificationRepository - to be created)
+        if (!notifications.isEmpty()) {
+            notificationRepository.insertAll(notifications);
+        }
+    }
+    
+    /**
+     * Schedule an alarm for a notification
+     */
+    private void scheduleAlarm(NotificationEntity notification, PatientEntity patient) {
+        Intent intent = new Intent(application, AlarmReceiver.class);
+        intent.setAction("com.finalprojectgroupae.immunization.SEND_REMINDER");
+        intent.putExtra(AlarmReceiver.EXTRA_NOTIFICATION_MESSAGE, notification.getMessage());
+        intent.putExtra(AlarmReceiver.EXTRA_PATIENT_NAME, patient.getFirstName() + " " + patient.getLastName());
+        intent.putExtra(AlarmReceiver.EXTRA_SCHEDULED_DOSE_ID, notification.getScheduledDoseId());
+        
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                application,
+                notification.getNotificationId().hashCode(),
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+        
+        // Schedule alarm
+        if (alarmManager != null) {
+            alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    notification.getScheduledSendDate().getTime(),
+                    pendingIntent
+            );
+            Log.i(TAG, "Alarm scheduled for notification: " + notification.getNotificationId());
+        }
     }
 
     /**
@@ -121,13 +169,14 @@ public class NotificationScheduler {
     /**
      * Build reminder message
      */
-    private String buildReminderMessage(ScheduledDoseEntity scheduledDose, int daysBefore) {
+    private String buildReminderMessage(ScheduledDoseEntity scheduledDose, int daysBefore, PatientEntity patient) {
+        String childName = patient.getFirstName() + " " + patient.getLastName();
         if (daysBefore == 1) {
-            return "Reminder: Your child's vaccination is due TOMORROW. " +
+            return "Reminder: " + childName + "'s vaccination is due TOMORROW. " +
                     "Please bring them to the clinic. Scheduled date: " +
                     DateUtils.formatForDisplay(scheduledDose.getScheduledDate());
         } else {
-            return "Reminder: Your child's vaccination is due in " + daysBefore + " days. " +
+            return "Reminder: " + childName + "'s vaccination is due in " + daysBefore + " days. " +
                     "Scheduled date: " + DateUtils.formatForDisplay(scheduledDose.getScheduledDate());
         }
     }
@@ -164,7 +213,30 @@ public class NotificationScheduler {
      * Cancel all pending notifications for a scheduled dose
      */
     public void cancelNotifications(String scheduledDoseId) {
-        // This requires NotificationDao - implementation needed
-        Log.i(TAG, "Cancelling notifications for: " + scheduledDoseId);
+        notificationRepository.getNotificationsByScheduledDose(scheduledDoseId, notifications -> {
+            if (notifications != null) {
+                for (NotificationEntity notification : notifications) {
+                    if ("pending".equals(notification.getStatus())) {
+                        // Cancel alarm
+                        Intent intent = new Intent(application, AlarmReceiver.class);
+                        intent.setAction("com.finalprojectgroupae.immunization.SEND_REMINDER");
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                                application,
+                                notification.getNotificationId().hashCode(),
+                                intent,
+                                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                        );
+                        
+                        if (alarmManager != null) {
+                            alarmManager.cancel(pendingIntent);
+                        }
+                    }
+                }
+                
+                // Update status in database
+                notificationRepository.cancelNotificationsForScheduledDose(scheduledDoseId);
+                Log.i(TAG, "Cancelled notifications for: " + scheduledDoseId);
+            }
+        });
     }
 }

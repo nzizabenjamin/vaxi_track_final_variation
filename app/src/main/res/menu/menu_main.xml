@@ -7,5 +7,20 @@
         android:title="@string/action_logout"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_populate_sample_data"
+        android:title="Load Sample Data"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_register_patient"
+        android:title="Register New Child"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_record_vaccination"
+        android:title="Record Vaccination"
+        app:showAsAction="ifRoom" />
+
 </menu>
 

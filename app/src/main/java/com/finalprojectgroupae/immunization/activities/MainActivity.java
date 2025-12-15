@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.finalprojectgroupae.immunization.ui.fragments.DashboardFragment;
 import com.finalprojectgroupae.immunization.ui.fragments.HomeFragment;
 import com.finalprojectgroupae.immunization.ui.fragments.RemindersFragment;
 import com.finalprojectgroupae.immunization.ui.fragments.ScheduleFragment;
+import com.finalprojectgroupae.immunization.utils.SampleDataPopulator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -82,6 +84,30 @@ public class MainActivity extends AppCompatActivity {
             authManager.logout();
             navigateToLogin();
             return true;
+        } else if (item.getItemId() == R.id.action_populate_sample_data) {
+            new SampleDataPopulator(getApplication()).populateSampleData();
+            Toast.makeText(this, "Populating sample data...", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (item.getItemId() == R.id.action_register_patient) {
+            // Check if user is CHW or Admin
+            String role = authManager.getActiveRole();
+            if (AuthManager.ROLE_ADMIN.equals(role) || AuthManager.ROLE_USER.equals(role)) {
+                Intent intent = new Intent(this, PatientRegistrationActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Only CHWs and Admins can register patients", Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        } else if (item.getItemId() == R.id.action_record_vaccination) {
+            // Check if user is CHW or Admin
+            String role = authManager.getActiveRole();
+            if (AuthManager.ROLE_ADMIN.equals(role) || AuthManager.ROLE_USER.equals(role)) {
+                Intent intent = new Intent(this, RecordVaccinationActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Only CHWs and Admins can record vaccinations", Toast.LENGTH_SHORT).show();
+            }
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -104,5 +130,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         binding = null;
     }
-}
 
+}

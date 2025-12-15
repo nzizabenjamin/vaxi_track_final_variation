@@ -27,6 +27,15 @@ public class DateUtils {
     }
 
     /**
+     * Format time for display (HH:mm)
+     */
+    public static String formatTime(Date date) {
+        if (date == null) return "";
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        return timeFormat.format(date);
+    }
+
+    /**
      * Format date for API calls
      */
     public static String formatForApi(Date date) {
