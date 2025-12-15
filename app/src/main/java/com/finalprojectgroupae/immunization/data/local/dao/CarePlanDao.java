@@ -24,19 +24,19 @@ public interface CarePlanDao {
     CarePlanEntity getCarePlanById(String carePlanId);
 
     @Query("SELECT * FROM care_plans WHERE care_plan_id = :carePlanId LIMIT 1")
-    LiveData getCarePlanByIdLive(String carePlanId);
+    LiveData<CarePlanEntity> getCarePlanByIdLive(String carePlanId);
 
     @Query("SELECT * FROM care_plans WHERE patient_id = :patientId LIMIT 1")
     CarePlanEntity getCarePlanByPatient(String patientId);
 
     @Query("SELECT * FROM care_plans WHERE patient_id = :patientId LIMIT 1")
-    LiveData getCarePlanByPatientLive(String patientId);
+    LiveData<CarePlanEntity> getCarePlanByPatientLive(String patientId);
 
     @Query("SELECT * FROM care_plans WHERE status = 'active'")
-    LiveData<List> getActiveCarePlans();
+    LiveData<List<CarePlanEntity>> getActiveCarePlans();
 
     @Query("SELECT * FROM care_plans WHERE is_synced = 0")
-    List getUnsyncedCarePlans();
+    List<CarePlanEntity> getUnsyncedCarePlans();
 
     @Query("UPDATE care_plans SET completed_doses = :completedDoses WHERE care_plan_id = :carePlanId")
     void updateCompletedDoses(String carePlanId, int completedDoses);

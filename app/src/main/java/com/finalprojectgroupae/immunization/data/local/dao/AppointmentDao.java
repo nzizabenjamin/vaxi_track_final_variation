@@ -19,7 +19,7 @@ public interface AppointmentDao {
     void insert(AppointmentEntity appointment);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List appointments);
+    void insertAll(List<AppointmentEntity> appointments);
 
     @Update
     void update(AppointmentEntity appointment);
@@ -28,22 +28,22 @@ public interface AppointmentDao {
     AppointmentEntity getAppointmentById(String appointmentId);
 
     @Query("SELECT * FROM appointments WHERE appointment_id = :appointmentId LIMIT 1")
-    LiveData getAppointmentByIdLive(String appointmentId);
+    LiveData<AppointmentEntity> getAppointmentByIdLive(String appointmentId);
 
     @Query("SELECT * FROM appointments WHERE patient_id = :patientId ORDER BY appointment_date DESC")
-    LiveData<List> getAppointmentsByPatient(String patientId);
+    LiveData<List<AppointmentEntity>> getAppointmentsByPatient(String patientId);
 
     @Query("SELECT * FROM appointments WHERE appointment_date = :date AND status = 'scheduled' ORDER BY appointment_date ASC")
-    List getAppointmentsByDate(Date date);
+    List<AppointmentEntity> getAppointmentsByDate(Date date);
 
     @Query("SELECT * FROM appointments WHERE appointment_date BETWEEN :startDate AND :endDate AND status != 'cancelled' ORDER BY appointment_date ASC")
-    LiveData<List> getAppointmentsInRange(Date startDate, Date endDate);
+    LiveData<List<AppointmentEntity>> getAppointmentsInRange(Date startDate, Date endDate);
 
     @Query("SELECT * FROM appointments WHERE status = :status ORDER BY appointment_date ASC")
-    LiveData<List> getAppointmentsByStatus(String status);
+    LiveData<List<AppointmentEntity>> getAppointmentsByStatus(String status);
 
     @Query("SELECT * FROM appointments WHERE is_synced = 0")
-    List getUnsyncedAppointments();
+    List<AppointmentEntity> getUnsyncedAppointments();
 
     @Query("UPDATE appointments SET status = :status WHERE appointment_id = :appointmentId")
     void updateStatus(String appointmentId, String status);

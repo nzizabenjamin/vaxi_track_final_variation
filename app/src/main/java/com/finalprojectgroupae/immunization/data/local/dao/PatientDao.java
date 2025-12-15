@@ -19,7 +19,7 @@ public interface PatientDao {
     void insert(PatientEntity patient);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List patients);
+    void insertAll(List<PatientEntity> patients);
 
     @Update
     void update(PatientEntity patient);
@@ -31,16 +31,16 @@ public interface PatientDao {
     PatientEntity getPatientById(String patientId);
 
     @Query("SELECT * FROM patients WHERE patient_id = :patientId LIMIT 1")
-    LiveData getPatientByIdLive(String patientId);
+    LiveData<PatientEntity> getPatientByIdLive(String patientId);
 
     @Query("SELECT * FROM patients WHERE is_active = 1 ORDER BY first_name ASC")
-    LiveData<List> getAllPatientsLive();
+    LiveData<List<PatientEntity>> getAllPatientsLive();
 
     @Query("SELECT * FROM patients WHERE is_active = 1 ORDER BY first_name ASC")
-    List getAllPatients();
+    List<PatientEntity> getAllPatients();
 
     @Query("SELECT * FROM patients WHERE guardian_id = :guardianId AND is_active = 1")
-    LiveData<List> getPatientsByGuardian(String guardianId);
+    LiveData<List<PatientEntity>> getPatientsByGuardian(String guardianId);
 
     @Query("SELECT * FROM patients WHERE " +
             "(first_name LIKE '%' || :searchQuery || '%' OR " +
@@ -48,22 +48,22 @@ public interface PatientDao {
             "guardian_name LIKE '%' || :searchQuery || '%') " +
             "AND is_active = 1 " +
             "ORDER BY first_name ASC")
-    LiveData<List> searchPatients(String searchQuery);
+    LiveData<List<PatientEntity>> searchPatients(String searchQuery);
 
     @Query("SELECT * FROM patients WHERE village = :village AND is_active = 1")
-    List getPatientsByVillage(String village);
+    List<PatientEntity> getPatientsByVillage(String village);
 
     @Query("SELECT * FROM patients WHERE district = :district AND is_active = 1")
-    List getPatientsByDistrict(String district);
+    List<PatientEntity> getPatientsByDistrict(String district);
 
     @Query("SELECT * FROM patients WHERE is_synced = 0")
-    List getUnsyncedPatients();
+    List<PatientEntity> getUnsyncedPatients();
 
     @Query("UPDATE patients SET is_synced = 1, fhir_id = :fhirId WHERE patient_id = :patientId")
     void markAsSynced(String patientId, String fhirId);
 
     @Query("SELECT COUNT(*) FROM patients WHERE is_active = 1")
-    LiveData getActivePatientCount();
+    LiveData<Integer> getActivePatientCount();
 
     @Query("DELETE FROM patients WHERE patient_id = :patientId")
     void deleteById(String patientId);

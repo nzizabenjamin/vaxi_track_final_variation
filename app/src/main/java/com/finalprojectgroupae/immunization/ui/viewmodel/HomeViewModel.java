@@ -19,11 +19,11 @@ public class HomeViewModel extends AndroidViewModel {
     private final PatientRepository patientRepository;
     private final ScheduledDoseRepository scheduledDoseRepository;
 
-    private final LiveData<List> allPatients;
-    private final LiveData<List> dueDoses;
-    private final LiveData patientCount;
+    private final LiveData<List<PatientEntity>> allPatients;
+    private final LiveData<List<ScheduledDoseEntity>> dueDoses;
+    private final LiveData<Integer> patientCount;
 
-    private final MutableLiveData errorMessage = new MutableLiveData<>();
+    private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -36,24 +36,24 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     // Getters for LiveData
-    public LiveData<List> getAllPatients() {
+    public LiveData<List<PatientEntity>> getAllPatients() {
         return allPatients;
     }
 
-    public LiveData<List> getDueDoses() {
+    public LiveData<List<ScheduledDoseEntity>> getDueDoses() {
         return dueDoses;
     }
 
-    public LiveData getPatientCount() {
+    public LiveData<Integer> getPatientCount() {
         return patientCount;
     }
 
-    public LiveData getErrorMessage() {
+    public LiveData<String> getErrorMessage() {
         return errorMessage;
     }
 
     // Search patients
-    public LiveData<List> searchPatients(String query) {
+    public LiveData<List<PatientEntity>> searchPatients(String query) {
         return patientRepository.searchPatients(query);
     }
 

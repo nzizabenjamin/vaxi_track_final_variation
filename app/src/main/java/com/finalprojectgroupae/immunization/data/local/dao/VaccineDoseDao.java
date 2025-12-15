@@ -18,23 +18,23 @@ public interface VaccineDoseDao {
     void insert(VaccineDoseEntity dose);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List doses);
+    void insertAll(List<VaccineDoseEntity> doses);
 
     @Update
     void update(VaccineDoseEntity dose);
 
     @Query("SELECT * FROM vaccine_doses ORDER BY display_order ASC")
-    List getAllDoses();
+    List<VaccineDoseEntity> getAllDoses();
 
     @Query("SELECT * FROM vaccine_doses WHERE vaccine_def_id = :vaccineDefId ORDER BY dose_number ASC")
-    List getDosesByVaccine(String vaccineDefId);
+    List<VaccineDoseEntity> getDosesByVaccine(String vaccineDefId);
 
     @Query("SELECT * FROM vaccine_doses WHERE vaccine_def_id = :vaccineDefId ORDER BY dose_number ASC")
-    LiveData<List> getDosesByVaccineLive(String vaccineDefId);
+    LiveData<List<VaccineDoseEntity>> getDosesByVaccineLive(String vaccineDefId);
 
     @Query("SELECT * FROM vaccine_doses WHERE dose_id = :doseId LIMIT 1")
     VaccineDoseEntity getDoseById(String doseId);
 
     @Query("SELECT * FROM vaccine_doses WHERE is_required = 1 ORDER BY display_order ASC")
-    List getRequiredDoses();
+    List<VaccineDoseEntity> getRequiredDoses();
 }

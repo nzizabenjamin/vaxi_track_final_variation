@@ -13,16 +13,16 @@ public class FhirAppointment {
     private String id;
 
     @SerializedName("status")
-    private String status; // proposed, pending, booked, arrived, fulfilled, cancelled, noshow
+    private String status;
 
     @SerializedName("description")
     private String description;
 
     @SerializedName("start")
-    private String start; // DateTime
+    private String start;
 
     @SerializedName("end")
-    private String end; // DateTime
+    private String end;
 
     @SerializedName("participant")
     private List<Participant> participant;
@@ -30,10 +30,8 @@ public class FhirAppointment {
     @SerializedName("serviceType")
     private List<CodeableConcept> serviceType;
 
-    // Constructors
     public FhirAppointment() {}
 
-    // Getters and Setters
     public String getResourceType() {
         return resourceType;
     }
@@ -94,13 +92,12 @@ public class FhirAppointment {
         this.serviceType = serviceType;
     }
 
-    // Nested classes
     public static class Participant {
         @SerializedName("actor")
         private Reference actor;
 
         @SerializedName("status")
-        private String status; // accepted, declined, tentative, needs-action
+        private String status;
 
         public Reference getActor() {
             return actor;

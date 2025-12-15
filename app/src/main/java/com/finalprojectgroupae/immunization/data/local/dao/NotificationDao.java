@@ -19,7 +19,7 @@ public interface NotificationDao {
     void insert(NotificationEntity notification);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List notifications);
+    void insertAll(List<NotificationEntity> notifications);
 
     @Update
     void update(NotificationEntity notification);
@@ -28,16 +28,16 @@ public interface NotificationDao {
     NotificationEntity getNotificationById(String notificationId);
 
     @Query("SELECT * FROM notifications WHERE scheduled_dose_id = :scheduledDoseId ORDER BY scheduled_send_date ASC")
-    List getNotificationsByScheduledDose(String scheduledDoseId);
+    List<NotificationEntity> getNotificationsByScheduledDose(String scheduledDoseId);
 
     @Query("SELECT * FROM notifications WHERE status = 'pending' AND scheduled_send_date <= :currentDate ORDER BY scheduled_send_date ASC")
-    List getPendingNotifications(Date currentDate);
+    List<NotificationEntity> getPendingNotifications(Date currentDate);
 
     @Query("SELECT * FROM notifications WHERE status = :status ORDER BY scheduled_send_date DESC")
-    LiveData<List> getNotificationsByStatus(String status);
+    LiveData<List<NotificationEntity>> getNotificationsByStatus(String status);
 
     @Query("SELECT * FROM notifications WHERE status = 'failed' AND retry_count < 3")
-    List getFailedNotificationsForRetry();
+    List<NotificationEntity> getFailedNotificationsForRetry();
 
     @Query("UPDATE notifications SET status = :status, sent_date = :sentDate WHERE notification_id = :notificationId")
     void updateNotificationStatus(String notificationId, String status, Date sentDate);

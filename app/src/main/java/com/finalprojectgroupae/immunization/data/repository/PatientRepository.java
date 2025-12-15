@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 public class PatientRepository {
 
     private final PatientDao patientDao;
-    private final LiveData<List> allPatients;
+    private final LiveData<List<PatientEntity>> allPatients;
     private final ExecutorService executorService;
 
     public PatientRepository(Application application) {
@@ -43,29 +43,29 @@ public class PatientRepository {
     }
 
     // Get all patients
-    public LiveData<List> getAllPatients() {
+    public LiveData<List<PatientEntity>> getAllPatients() {
         return allPatients;
     }
 
     // Get patient by ID
-    public LiveData getPatientById(String patientId) {
+    public LiveData<PatientEntity> getPatientById(String patientId) {
         return patientDao.getPatientByIdLive(patientId);
     }
 
     // Search patients
-    public LiveData<List> searchPatients(String query) {
+    public LiveData<List<PatientEntity>> searchPatients(String query) {
         return patientDao.searchPatients(query);
     }
 
     // Get patients by guardian
-    public LiveData<List> getPatientsByGuardian(String guardianId) {
+    public LiveData<List<PatientEntity>> getPatientsByGuardian(String guardianId) {
         return patientDao.getPatientsByGuardian(guardianId);
     }
 
     // Get unsynced patients
     public void getUnsyncedPatients(OnPatientsLoadedCallback callback) {
         executorService.execute(() -> {
-            List patients = patientDao.getUnsyncedPatients();
+            List<PatientEntity> patients = patientDao.getUnsyncedPatients();
             callback.onPatientsLoaded(patients);
         });
     }
@@ -77,12 +77,12 @@ public class PatientRepository {
     }
 
     // Get patient count
-    public LiveData getActivePatientCount() {
+    public LiveData<Integer> getActivePatientCount() {
         return patientDao.getActivePatientCount();
     }
 
     // Callback interface
     public interface OnPatientsLoadedCallback {
-        void onPatientsLoaded(List patients);
+        void onPatientsLoaded(List<PatientEntity> patients);
     }
 }

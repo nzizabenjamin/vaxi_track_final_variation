@@ -26,20 +26,20 @@ public class VaccineDoseRepository {
     // Get all doses
     public void getAllDoses(OnDosesLoadedCallback callback) {
         executorService.execute(() -> {
-            List doses = vaccineDoseDao.getAllDoses();
+            List<VaccineDoseEntity> doses = vaccineDoseDao.getAllDoses();
             callback.onDosesLoaded(doses);
         });
     }
 
     // Get doses by vaccine
-    public LiveData<List> getDosesByVaccine(String vaccineDefId) {
+    public LiveData<List<VaccineDoseEntity>> getDosesByVaccine(String vaccineDefId) {
         return vaccineDoseDao.getDosesByVaccineLive(vaccineDefId);
     }
 
     // Get required doses
     public void getRequiredDoses(OnDosesLoadedCallback callback) {
         executorService.execute(() -> {
-            List doses = vaccineDoseDao.getRequiredDoses();
+            List<VaccineDoseEntity> doses = vaccineDoseDao.getRequiredDoses();
             callback.onDosesLoaded(doses);
         });
     }
@@ -54,7 +54,7 @@ public class VaccineDoseRepository {
 
     // Callback interfaces
     public interface OnDosesLoadedCallback {
-        void onDosesLoaded(List doses);
+        void onDosesLoaded(List<VaccineDoseEntity> doses);
     }
 
     public interface OnDoseLoadedCallback {

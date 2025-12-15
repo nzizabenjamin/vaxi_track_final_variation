@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData;
 import com.finalprojectgroupae.immunization.data.local.AppDatabase;
 import com.finalprojectgroupae.immunization.data.local.dao.ScheduledDoseDao;
 import com.finalprojectgroupae.immunization.data.local.entities.ScheduledDoseEntity;
-import com.finalprojectgroupae.immunization.utils.Constants;
 
 import java.util.Date;
 import java.util.List;
@@ -31,7 +30,7 @@ public class ScheduledDoseRepository {
     }
 
     // Insert multiple
-    public void insertAll(List scheduledDoses) {
+    public void insertAll(List<ScheduledDoseEntity> scheduledDoses) {
         AppDatabase.databaseWriteExecutor.execute(() -> scheduledDoseDao.insertAll(scheduledDoses));
     }
 
@@ -41,24 +40,24 @@ public class ScheduledDoseRepository {
     }
 
     // Get by ID
-    public LiveData getScheduledDoseById(String scheduledDoseId) {
+    public LiveData<ScheduledDoseEntity> getScheduledDoseById(String scheduledDoseId) {
         return scheduledDoseDao.getScheduledDoseByIdLive(scheduledDoseId);
     }
 
     // Get all for patient
-    public LiveData<List> getScheduledDosesByPatient(String patientId) {
+    public LiveData<List<ScheduledDoseEntity>> getScheduledDosesByPatient(String patientId) {
         return scheduledDoseDao.getScheduledDosesByPatient(patientId);
     }
 
     // Get due doses
-    public LiveData<List> getDueDoses() {
+    public LiveData<List<ScheduledDoseEntity>> getDueDoses() {
         return scheduledDoseDao.getDueDoses();
     }
 
     // Get overdue doses
     public void getOverdueDoses(OnScheduledDosesLoadedCallback callback) {
         executorService.execute(() -> {
-            List doses = scheduledDoseDao.getOverdueDoses();
+            List<ScheduledDoseEntity> doses = scheduledDoseDao.getOverdueDoses();
             callback.onScheduledDosesLoaded(doses);
         });
     }
@@ -78,7 +77,7 @@ public class ScheduledDoseRepository {
     // Get doses due on specific date
     public void getDosesDueOnDate(Date date, OnScheduledDosesLoadedCallback callback) {
         executorService.execute(() -> {
-            List doses = scheduledDoseDao.getDosesDueOnDate(date);
+            List<ScheduledDoseEntity> doses = scheduledDoseDao.getDosesDueOnDate(date);
             callback.onScheduledDosesLoaded(doses);
         });
     }
@@ -87,7 +86,7 @@ public class ScheduledDoseRepository {
     public void getDosesDueInRange(Date startDate, Date endDate,
                                    OnScheduledDosesLoadedCallback callback) {
         executorService.execute(() -> {
-            List doses =
+            List<ScheduledDoseEntity> doses =
                     scheduledDoseDao.getDosesDueInRange(startDate, endDate);
             callback.onScheduledDosesLoaded(doses);
         });
@@ -96,7 +95,7 @@ public class ScheduledDoseRepository {
     // Get unsynced
     public void getUnsyncedScheduledDoses(OnScheduledDosesLoadedCallback callback) {
         executorService.execute(() -> {
-            List doses = scheduledDoseDao.getUnsyncedScheduledDoses();
+            List<ScheduledDoseEntity> doses = scheduledDoseDao.getUnsyncedScheduledDoses();
             callback.onScheduledDosesLoaded(doses);
         });
     }
@@ -112,7 +111,7 @@ public class ScheduledDoseRepository {
 
     // Callback interfaces
     public interface OnScheduledDosesLoadedCallback {
-        void onScheduledDosesLoaded(List doses);
+        void onScheduledDosesLoaded(List<ScheduledDoseEntity> doses);
     }
 
     public interface OnCompletionStatsCallback {

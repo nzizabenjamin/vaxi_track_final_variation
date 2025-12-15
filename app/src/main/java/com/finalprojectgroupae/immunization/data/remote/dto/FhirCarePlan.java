@@ -13,10 +13,10 @@ public class FhirCarePlan {
     private String id;
 
     @SerializedName("status")
-    private String status; // draft, active, on-hold, completed, cancelled
+    private String status;
 
     @SerializedName("intent")
-    private String intent; // proposal, plan, order, option
+    private String intent;
 
     @SerializedName("title")
     private String title;
@@ -25,7 +25,7 @@ public class FhirCarePlan {
     private String description;
 
     @SerializedName("subject")
-    private Reference subject; // Patient reference
+    private Reference subject;
 
     @SerializedName("period")
     private Period period;
@@ -39,10 +39,8 @@ public class FhirCarePlan {
     @SerializedName("activity")
     private List<Activity> activity;
 
-    // Constructors
     public FhirCarePlan() {}
 
-    // Getters and Setters
     public String getResourceType() {
         return resourceType;
     }
@@ -127,7 +125,6 @@ public class FhirCarePlan {
         this.activity = activity;
     }
 
-    // Nested classes
     public static class Period {
         @SerializedName("start")
         private String start;

@@ -17,24 +17,12 @@ public interface VaccineDefinitionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(VaccineDefinitionEntity vaccine);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List vaccines);
-
-    @Update
-    void update(VaccineDefinitionEntity vaccine);
-
-    @Query("SELECT * FROM vaccine_definitions WHERE is_active = 1 ORDER BY display_order ASC")
-    LiveData<List> getAllVaccinesLive();
-
-    @Query("SELECT * FROM vaccine_definitions WHERE is_active = 1 ORDER BY display_order ASC")
-    List getAllVaccines();
-
     @Query("SELECT * FROM vaccine_definitions WHERE vaccine_def_id = :vaccineDefId LIMIT 1")
     VaccineDefinitionEntity getVaccineById(String vaccineDefId);
 
-    @Query("SELECT * FROM vaccine_definitions WHERE vaccine_code = :vaccineCode LIMIT 1")
-    VaccineDefinitionEntity getVaccineByCode(String vaccineCode);
+    @Query("SELECT * FROM vaccine_definitions ORDER BY display_order ASC")
+    List<VaccineDefinitionEntity> getAllVaccines();
 
-    @Query("SELECT * FROM vaccine_definitions WHERE vaccine_code = :vaccineCode LIMIT 1")
-    LiveData getVaccineByCodeLive(String vaccineCode);
+    @Query("SELECT * FROM vaccine_definitions WHERE is_active = 1 ORDER BY display_order ASC")
+    LiveData<List<VaccineDefinitionEntity>> getAllVaccinesLive();
 }

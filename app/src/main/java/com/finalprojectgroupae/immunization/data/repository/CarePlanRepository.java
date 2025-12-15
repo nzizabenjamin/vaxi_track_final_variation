@@ -34,17 +34,17 @@ public class CarePlanRepository {
     }
 
     // Get by ID
-    public LiveData getCarePlanById(String carePlanId) {
+    public LiveData<CarePlanEntity> getCarePlanById(String carePlanId) {
         return carePlanDao.getCarePlanByIdLive(carePlanId);
     }
 
     // Get by patient
-    public LiveData getCarePlanByPatient(String patientId) {
+    public LiveData<CarePlanEntity> getCarePlanByPatient(String patientId) {
         return carePlanDao.getCarePlanByPatientLive(patientId);
     }
 
     // Get active care plans
-    public LiveData<List> getActiveCarePlans() {
+    public LiveData<List<CarePlanEntity>> getActiveCarePlans() {
         return carePlanDao.getActiveCarePlans();
     }
 
@@ -57,13 +57,13 @@ public class CarePlanRepository {
     // Get unsynced
     public void getUnsyncedCarePlans(OnCarePlansLoadedCallback callback) {
         executorService.execute(() -> {
-            List carePlans = carePlanDao.getUnsyncedCarePlans();
+            List<CarePlanEntity> carePlans = carePlanDao.getUnsyncedCarePlans();
             callback.onCarePlansLoaded(carePlans);
         });
     }
 
     // Callback interface
     public interface OnCarePlansLoadedCallback {
-        void onCarePlansLoaded(List carePlans);
+        void onCarePlansLoaded(List<CarePlanEntity> carePlans);
     }
 }

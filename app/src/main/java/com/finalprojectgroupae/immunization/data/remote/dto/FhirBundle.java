@@ -16,7 +16,7 @@ public class FhirBundle {
     private int total;
 
     @SerializedName("entry")
-    private List entry;
+    private List<Entry> entry;
 
     public String getResourceType() {
         return resourceType;
@@ -38,11 +38,11 @@ public class FhirBundle {
         this.total = total;
     }
 
-    public List getEntry() {
+    public List<Entry> getEntry() {
         return entry;
     }
 
-    public void setEntry(List entry) {
+    public void setEntry(List<Entry> entry) {
         this.entry = entry;
     }
 
