@@ -13,9 +13,9 @@ public class RecordImmunizationViewModel extends AndroidViewModel {
 
     private final ImmunizationService immunizationService;
 
-    private final MutableLiveData isLoading = new MutableLiveData<>(false);
-    private final MutableLiveData successMessage = new MutableLiveData<>();
-    private final MutableLiveData errorMessage = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
+    private final MutableLiveData<String> successMessage = new MutableLiveData<>();
+    private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
     public RecordImmunizationViewModel(@NonNull Application application) {
         super(application);
@@ -52,15 +52,15 @@ public class RecordImmunizationViewModel extends AndroidViewModel {
     }
 
     // Getters
-    public MutableLiveData getIsLoading() {
+    public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
-    public MutableLiveData getSuccessMessage() {
+    public MutableLiveData<String> getSuccessMessage() {
         return successMessage;
     }
 
-    public MutableLiveData getErrorMessage() {
+    public MutableLiveData<String> getErrorMessage() {
         return errorMessage;
     }
 }

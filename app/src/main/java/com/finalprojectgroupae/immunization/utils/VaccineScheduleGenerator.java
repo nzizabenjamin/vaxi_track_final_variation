@@ -14,13 +14,13 @@ public class VaccineScheduleGenerator {
     /**
      * Generate a complete vaccination schedule for a patient based on birth date
      */
-    public static List generateSchedule(
+    public static List<ScheduledDoseEntity> generateSchedule(
             String patientId,
             Date birthDate,
-            List vaccineDoses,
+            List<VaccineDoseEntity> vaccineDoses,
             String carePlanId) {
 
-        List scheduledDoses = new ArrayList<>();
+        List<ScheduledDoseEntity> scheduledDoses = new ArrayList<>();
 
         for (VaccineDoseEntity dose : vaccineDoses) {
             ScheduledDoseEntity scheduledDose = new ScheduledDoseEntity();
@@ -45,13 +45,13 @@ public class VaccineScheduleGenerator {
     /**
      * Generate catch-up schedule for missed vaccinations
      */
-    public static List generateCatchUpSchedule(
+    public static List<ScheduledDoseEntity> generateCatchUpSchedule(
             String patientId,
             Date birthDate,
-            List missedDoses,
+            List<VaccineDoseEntity> missedDoses,
             String carePlanId) {
 
-        List catchUpDoses = new ArrayList<>();
+        List<ScheduledDoseEntity> catchUpDoses = new ArrayList<>();
         Date currentDate = new Date();
         Date nextScheduledDate = currentDate;
 
